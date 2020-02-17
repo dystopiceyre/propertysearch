@@ -1,0 +1,19 @@
+{
+  "name": "oringhiser/328/propertysearch",
+  "authors": [
+    {
+      "name": "Olivia Ringhiser",
+      "email": "oringhiser@mail.greenriver.edu"
+    },
+    {
+      "name": "Josh Kristiansen",
+      "email": "jkristiansen@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  },
+  "autoload": {
+    "classmap": ["classes/"]
+  }
+}
