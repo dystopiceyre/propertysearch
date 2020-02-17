@@ -2,5 +2,10 @@
 
 class User extends Person
 {
-    function __construct() {}
+    private $_userID;
+
+    function __construct($phone, $email, $name, $_password)
+    {
+        parent::__construct($phone, $email, $name, $_password);
+    }
 }
