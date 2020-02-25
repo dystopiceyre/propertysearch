@@ -1,31 +1,40 @@
 <?php
-//Start a session
-session_start();
-
 //Turn on error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Required file
-require_once('vendor/autoload.php');
-//require_once('model/validate.php');
+require_once('vendor/autoload.php');;
 
-//Instantiate Fat-Free
+//Start a session
+session_start();
+
+//Create an instance of the Base class
 $f3 = Base::instance();
+$f3->set('DEBUG', 3);
 
 //Turn on Fat-Free error reporting
 $f3->set('DEBUG', 3);
 
+$controller = new PropertyController($f3);
+$db = new PropertyDatabase();
+
 //Define a default route
 $f3->route('GET /', function () {
-    $view = new Template();
-    echo $view->render('views/landing-page.html');
+    global $controller;
+    $controller->landingPage();
 });
 
-//Define a homes route
+//Define a properties route
 $f3->route('GET /homes', function () {
-    $view = new Template();
-    echo $view->render('views/homes.html');
+    global $controller;
+    $controller->properties();
+});
+
+//Define a route that allows you to add a new property
+$f3->route('GET|POST /add', function () {
+    global $controller;
+    $controller->add();
 });
 
 //Run Fat-Free

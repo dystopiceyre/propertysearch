@@ -35,7 +35,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Bed, bath, blah blah blah
+                                        <ul>
+                                            <li>Square Footage: {{ @property['sqFoot'] }}</li>
+                                            <li># of Bedrooms: {{ @property['bedCount'] }}</li>
+                                            <li># of Bathrooms {{ @property['bathCount'] }}</li>
+                                            <li>Description: {{ @property['description'] }}</li>
+                                        </ul>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -88,6 +93,9 @@
             </div>
         </div>
     </div>
+    <a href="add">
+        <button>Add a New Home!</button>
+    </a>
 </div>
 <script src="/305/bootstrap-tutorial/js/jquery.slim.min.js"></script>
 <script src="/305/bootstrap-tutorial/js/popper.min.js"></script>
