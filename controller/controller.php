@@ -11,6 +11,7 @@ class PropertyController
     {
         $this->_f3 = $f3;
         $this->_validator = new PropertyValidator();
+        $this->_f3->set('types', array('House', 'Condo', 'Apartment'));
     }
 
     public function landingPage() {

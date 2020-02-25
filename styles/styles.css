@@ -1,0 +1,38 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Century Gothic";
+}
+
+body {
+    background-color: #353434;
+}
+
+div {
+    padding: 10px;
+}
+
+#myVideo {
+    position: fixed;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.opacity {
+    opacity: 0.6;
+}
+
+.card {
+    width: fit-content;
+    margin: 1em;
+    background-color: lightskyblue;
+    border: 3px solid darkslateblue !important;
+    border-radius: 25px !important;
+}
+
+.dim {
+    background: rgba(0, 0, 0, 0.4);
+}
