@@ -7,9 +7,6 @@ class Agent extends Person
 {
     private $_agentID;
 
-    /* TODO: find out if SQL's auto-increment feature
-    works when adding items to a database from PHP */
-
     /**
      * Agent constructor.
      * @param $phone

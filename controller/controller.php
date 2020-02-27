@@ -14,7 +14,8 @@ class PropertyController
         $this->_f3->set('types', array('House', 'Condo', 'Apartment'));
     }
 
-    public function landingPage() {
+    public function landingPage()
+    {
         $view = new Template();
         echo $view->render('views/landing-page.html');
     }
@@ -35,6 +36,10 @@ class PropertyController
             if ($this->_validator->validSqFoot($sqFoot)) {
                 $_SESSION['sqFoot'] = $sqFoot;
             }
+            $type = $_POST['type'];
+            if ($this->_validator->validType($type)) {
+                $_SESSION['type'] = $type;
+            }
             $bathCount = $_POST['bathCount'];
             if ($this->_validator->validBath($bathCount)) {
                 $_SESSION['bathCount'] = $bathCount;
@@ -48,7 +53,7 @@ class PropertyController
                 $_SESSION['description'] = $description;
             }
             //Instantiate a property object
-            $property = new Property($sqFoot, $bathCount, $bedCount, $description);
+            $property = new Property($sqFoot, $type, $bathCount, $bedCount, $description);
 
             //Write property to the database
             $GLOBALS['db']->addProperty($property);
@@ -65,8 +70,8 @@ class PropertyController
             $this->_f3->set('property', $_POST);
         }
 
-        $homeID = $GLOBALS['db']->gethomeID();
-        $this->_f3->set('homeID', $homeID);
+//        $homeID = $GLOBALS['db']->gethomeID();
+//        $this->_f3->set('homeID', $homeID);
 
         $template = new Template();
         echo $template->render('views/new-property.html');

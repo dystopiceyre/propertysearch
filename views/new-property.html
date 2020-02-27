@@ -12,30 +12,58 @@
     <h3>Add a New Property</h3>
     <form id="property-form" action="#" method="post">
 
-        <div class="form-group">
-            <label for="sqFoot">Square Footage</label>
-            <input type="number" class="form-control" min="1"
-                   id="sqFoot" name="sqFoot" value="{{ @property['sqFoot'] }}">
-            <span class="err">{{ @errors['sqFoot'] }}</span>
+        <div class="form-group form-check" id="type">
+            <label for="type">Type of Property</label><br>
+            <label for="house"><input type="radio" id="house" name="type" value="house">
+                House</label>
+            <label for="condo"><input type="radio" id="condo" name="type" value="condo">
+                Condo</label>
+            <label for="apartment"><input type="radio" id="apartment" name="type" value="apartment">
+                Apartment</label>
         </div>
-        <div class="form-group">
-            <label for="bathCount">Number of Bathrooms</label>
-            <input type="number" class="form-control" min="1"
-                   id="bathCount" name="bathCount" value="{{ @property['bathCount'] }}">
-            <span class="err">{{ @errors['bathCount'] }}</span>
+        <check if="{{@type == 'house'}}">
+            <div class="form-group form-check" id="rentbuy">
+                <label for="rentbuy">Is this for rent or purchase></label>
+                <label for="rent"><input type="radio" id="rent" name="rentbuy" value="rent">Rental</label>
+                <label for="buy"><input type="radio" id="buy" name="rentbuy" value="buy">Purchase</label>
+            </div>
+        </check>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="sqFoot">Square Footage</label>
+                    <input type="number" class="form-control" min="1"
+                           id="sqFoot" name="sqFoot" value="{{ @property['sqFoot'] }}">
+                    <span class="err">{{ @errors['sqFoot'] }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="bathCount">Number of Bathrooms</label>
+                    <input type="number" class="form-control" min="1" step="0.5"
+                           id="bathCount" name="bathCount" value="{{ @property['bathCount'] }}">
+                    <span class="err">{{ @errors['bathCount'] }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="bedCount">Number of Bedrooms</label>
+                    <input type="number" class="form-control" min="1"
+                           id="bedCount" name="bedCount" value="{{ @property['bedCount'] }}">
+                    <span class="err">{{ @errors['bedCount'] }}</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" min="500"
+                           id="price" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label><br>
+                    <textarea id="description" name="description" cols="50" rows="5"></textarea>
+                    <span class="err">{{ @errors['description'] }}</span>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="bedCount">Number of Bedrooms</label>
-            <input type="number" class="form-control" min="1"
-                   id="bedCount" name="bedCount" value="{{ @student['bedCount'] }}">
-            <span class="err">{{ @errors['bedCount'] }}</span>
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description">
-            </textarea>
-            <span class="err">{{ @errors['description'] }}</span>
-        </div>
+
         <button id="submit" type="submit" class="btn btn-primary">
             Add Property
         </button>

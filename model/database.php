@@ -1,7 +1,5 @@
 <?php
 
-require_once("config.php");
-
 class PropertyDatabase
 {
     //PDO object
@@ -9,14 +7,23 @@ class PropertyDatabase
 
     function __construct()
     {
-        /*try {
+        try {
             //Create a new PDO connection
-            $this->_dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $this->_dbh = new PDO(DB_DPROP_SN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
             //echo "Connected!";
         } catch (PDOException $e) {
             echo $e->getMessage();
-        }*/
+        }
     }
+
+//    function getHomeID() {
+//        //1. Define the query
+//        $sql = "SELECT property_id FROM property";
+//        //2. Prepare the statement
+//        //3. Bind the parameters
+//        //4. Execute the statement
+//        //5. Get the result
+//    }
 
     function getProperties()
     {
@@ -31,21 +38,41 @@ class PropertyDatabase
     function getHouses()
     {
         //TODO
+        //1. Define the query
+        //2. Prepare the statement
+        //3. Bind the parameters
+        //4. Execute the statement
+        //5. Get the result
     }
 
     function getCondos()
     {
         //TODO
+        //1. Define the query
+        //2. Prepare the statement
+        //3. Bind the parameters
+        //4. Execute the statement
+        //5. Get the result
     }
 
     function getApartments()
     {
         //TODO
+        //1. Define the query
+        //2. Prepare the statement
+        //3. Bind the parameters
+        //4. Execute the statement
+        //5. Get the result
     }
 
     function getAgents()
     {
         //TODO
+        //1. Define the query
+        //2. Prepare the statement
+        //3. Bind the parameters
+        //4. Execute the statement
+        //5. Get the result
     }
 
     function getUsers()
@@ -56,8 +83,8 @@ class PropertyDatabase
     function addProperty($property)
     {
         //1. Define the query
-        $sql = "INSERT INTO property(sqFoot, bathCount, bedCount, description)
-                VALUES (:sqFoot, :bathCount, :bedCount, :description)";
+        $sql = "INSERT INTO property(sqFoot, type, bathCount, bedCount, description)
+                VALUES (:sqFoot, :type, :bathCount, :bedCount, :description)";
 
         //2. Prepare the statement
         $statement = $this->_dbh->prepare($sql);

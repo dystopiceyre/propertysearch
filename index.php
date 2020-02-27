@@ -4,10 +4,18 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Required file
-require_once('vendor/autoload.php');;
+require_once('vendor/autoload.php');
 
 //Start a session
 session_start();
+
+require_once('/home/oringhis/propertyConfig.php');
+try {
+    $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
+    echo "connected";
+} catch (PDOException $e) {
+    echo $e->getMessage();
+}
 
 //Create an instance of the Base class
 $f3 = Base::instance();
