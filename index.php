@@ -9,7 +9,7 @@ require_once('vendor/autoload.php');
 //Start a session
 session_start();
 
-require_once('/home/oringhis/propertyConfig.php');
+require('/home/oringhis/propertyConfig.php');
 try {
     $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
 } catch (PDOException $e) {
@@ -18,7 +18,6 @@ try {
 
 //Create an instance of the Base class
 $f3 = Base::instance();
-$f3->set('DEBUG', 3);
 
 //Turn on Fat-Free error reporting
 $f3->set('DEBUG', 3);

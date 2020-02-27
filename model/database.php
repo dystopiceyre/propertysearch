@@ -3,13 +3,13 @@
 class PropertyDatabase
 {
     //PDO object
-    private $_dbh;
+    private $_db;
 
     function __construct()
     {
+        require('/home/oringhis/propertyConfig.php');
         try {
-            //Create a new PDO connection
-            $this->_dbh = new PDO(DB_DPROP_SN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
+            $this->_db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -26,12 +26,15 @@ class PropertyDatabase
 
     function getProperties()
     {
-        //TODO
         //1. Define the query
+        $sql = "SELECT * FROM property";
         //2. Prepare the statement
+        $statement = $this->_db->prepare($sql);
         //3. Bind the parameters
         //4. Execute the statement
+        $statement->execute();
         //5. Get the result
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getHouses()
@@ -86,7 +89,7 @@ class PropertyDatabase
                 VALUES (:sqFoot, :type, :bathCount, :bedCount, :description)";
 
         //2. Prepare the statement
-        $statement = $this->_dbh->prepare($sql);
+        $statement = $this->_db->prepare($sql);
 
         //3. Bind the parameters
         $statement->bindParam(':sqFoot', $property->getSqFoot());
@@ -98,6 +101,6 @@ class PropertyDatabase
         $statement->execute();
 
         //Get the key of the last inserted row
-        $id = $this->_dbh->lastInsertId();
+        $id = $this->_db->lastInsertId();
     }
 }
