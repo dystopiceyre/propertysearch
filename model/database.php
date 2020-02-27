@@ -10,7 +10,6 @@ class PropertyDatabase
         try {
             //Create a new PDO connection
             $this->_dbh = new PDO(DB_DPROP_SN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
-            //echo "Connected!";
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

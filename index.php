@@ -12,7 +12,6 @@ session_start();
 require_once('/home/oringhis/propertyConfig.php');
 try {
     $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
-    echo "connected";
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
