@@ -23,7 +23,6 @@ class PropertyController
     public function properties()
     {
         $properties = $GLOBALS['db']->getProperties();
-
         $this->_f3->set('properties', $properties);
         $template = new Template();
         echo $template->render('views/homes.html');
@@ -48,30 +47,39 @@ class PropertyController
             if ($this->_validator->validBed($bedCount)) {
                 $_SESSION['bedCount'] = $bedCount;
             }
+            $price = $_POST['price'];
+            if ($this->_validator->validPrice($price)) {
+                $_SESSION['price'] = $price;
+            }
             $description = $_POST['description'];
             if ($this->_validator->validDescription($description)) {
                 $_SESSION['description'] = $description;
             }
             //Instantiate a property object
-            $property = new Property($sqFoot, $type, $bathCount, $bedCount, $description);
+            $property = new Property($sqFoot, $bathCount, $bedCount, $description);
+            //Write property to the database and grab last insert ID
+            $id = $GLOBALS['db']->addProperty($property, $price, $type);
 
-            //Write property to the database
-            $GLOBALS['db']->addProperty($property);
-
-            //Reroute to homes page
-            $this->_f3->reroute("/homes");
+            if ($type == 'house') {
+                $rentbuy = $_POST['rentbuy'];
+                $house = new House($sqFoot, $bathCount, $bedCount, $description, $rentbuy, $price);
+                $GLOBALS['db']->addHouse($house, $id);
+            }
+            if ($type == 'apartment') {
+                $GLOBALS['db']->addApartment($id);
+            }
+            if ($type == 'condo') {
+                $GLOBALS['db']->addCondo($id);
+            }
 
         } else {
             //Data was not valid
             //Get errors from Validator and add to f3 hive
             $this->_f3->set('errors', $this->_validator->getErrors());
-
+            echo "data is not valid!";
             //Add POST array data to f3 hive for "sticky" form
             $this->_f3->set('property', $_POST);
         }
-
-//        $homeID = $GLOBALS['db']->gethomeID();
-//        $this->_f3->set('homeID', $homeID);
 
         $template = new Template();
         echo $template->render('views/new-property.html');

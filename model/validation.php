@@ -22,6 +22,17 @@ class PropertyValidator
         return preg_match('/^[A-Za-z ,.]*$/', $description);
     }
 
+    public function validPrice($price)
+    {
+        return ctype_digit($price) && $price > 500;
+    }
+
+    public function validType($type)
+    {
+        //TODO: use F3 array of type
+        return in_array($type, array('house','apartment','condo'));
+    }
+
     public function getErrors()
     {
         return $this->_errors;
