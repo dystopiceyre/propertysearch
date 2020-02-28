@@ -11,7 +11,6 @@
 <div class="container">
     <h3>Add a New Property</h3>
     <form id="property-form" action="#" method="post">
-
         <div class="form-group form-check" id="type">
             <label for="type">Type of Property</label><br>
             <label for="house"><input type="radio" id="house" name="type" value="house">
@@ -21,20 +20,23 @@
             <label for="apartment"><input type="radio" id="apartment" name="type" value="apartment">
                 Apartment</label>
         </div>
-        <check if="{{@type == 'house'}}">
-            <div class="form-group form-check" id="rentbuy">
-                <label for="rentbuy">Is this for rent or purchase></label>
-                <label for="rent"><input type="radio" id="rent" name="rentbuy" value="rent">Rental</label>
-                <label for="buy"><input type="radio" id="buy" name="rentbuy" value="buy">Purchase</label>
-            </div>
-        </check>
-
         <div class="row">
             <div class="col">
+                <div class="form-group form-check hidden" id="rentDiv">
+                    <label for="rentDiv">Is this house for rent or purchase?</label><br>
+                    <label for="rent"><input type="radio" id="rent" name="rentbuy" value="rent">Rental</label>
+                    <label for="buy"><input type="radio" id="buy" name="rentbuy" value="buy">Purchase</label>
+                </div>
+                <div class="form-group hidden" id="floorDiv">
+                    <label for="floor">Floor Level</label>
+                    <input type="number" class="form-control" min="1"
+                           id="floor" name="floor">
+                    <span class="err">{{ @errors['floor'] }}</span>
+                </div>
                 <div class="form-group">
                     <label for="sqFoot">Square Footage</label>
-                    <input type="number" class="form-control" min="1"
-                           id="sqFoot" name="sqFoot" value="{{ @property['sqFoot'] }}">
+                    <input type="number" class="form-control"
+                           id="sqFoot" name="sqFoot" min="250" value="{{ @property['sqFoot'] }}">
                     <span class="err">{{ @errors['sqFoot'] }}</span>
                 </div>
                 <div class="form-group">
@@ -55,25 +57,40 @@
                     <label for="price">Price</label>
                     <input type="number" class="form-control" min="500"
                            id="price" name="price">
+                    <span class="err">{{ @errors['price'] }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="yearBuilt">Year Built</label>
+                    <input type="number" class="form-control"
+                           min="1600" max="2020" id="yearBuilt" name="yearBuilt">
+                    <span class="err">{{ @errors['yearBuilt'] }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="number" class="form-control"
+                           min="00000" max="99999" id="location" name="location">
+                    <span class="err">{{ @errors['location'] }}</span>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label><br>
-                    <textarea id="description" name="description" cols="50" rows="5"></textarea>
+                    <textarea id="description" name="description" cols="60" rows="5"></textarea>
                     <span class="err">{{ @errors['description'] }}</span>
                 </div>
             </div>
         </div>
 
-        <button id="submit" type="submit" class="btn btn-primary">
-            Add Property
-        </button>
-
+        <div class="text-center">
+            <button id="submit" type="submit" class="btn btn-primary">
+                Add Property
+            </button>
+        </div>
     </form>
 </div>
 
 <script src="/305/bootstrap-tutorial/js/jquery.slim.min.js"></script>
 <script src="/305/bootstrap-tutorial/js/popper.min.js"></script>
 <script src="/305/bootstrap-tutorial/js/bootstrap.min.js"></script>
+<script src="scripts/new-property.js"></script>
 
 </body>
 </html>
