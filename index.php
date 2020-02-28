@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Required file
-require_once('vendor/autoload.php');
+require_once('vendor/autoload.php');;
 
 //Start a session
 session_start();
@@ -29,6 +29,16 @@ $db = new PropertyDatabase();
 $f3->route('GET /', function () {
     global $controller;
     $controller->landingPage();
+});
+
+$f3->route('GET /login', function () {
+    global $controller;
+    $controller->loginPage();
+});
+
+$f3->route('GET /register', function () {
+    global $controller;
+    $controller->registerPage();
 });
 
 //Define a properties route

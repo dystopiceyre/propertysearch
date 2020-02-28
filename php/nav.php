@@ -1,5 +1,9 @@
 <?php
 
+/*if ($_SERVER['REQUEST_URI'] == "/328/propertysearch/") {
+    $textColor = "text-white";
+}*/
+
 echo '
 
 <!--Main Navigation-->
@@ -12,12 +16,12 @@ echo '
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal" href="#">About us</a>
+          <a class="nav-link h5 font-weight-normal ' . $_SESSION['navColor'] . '" href="#">About us</a>
         </li>
       </ul>
       <ul class="navbar-nav nav-flex-icons">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal" href="#">Log in</a>
+          <a class="nav-link h5 font-weight-normal ' . $_SESSION['navColor'] . '" href="login">Log in</a>
         </li>
       </ul>
     </div>

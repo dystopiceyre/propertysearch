@@ -16,12 +16,28 @@ class PropertyController
 
     public function landingPage()
     {
+        $_SESSION['navColor'] = "text-white";
         $view = new Template();
         echo $view->render('views/landing-page.html');
     }
 
+    public function loginPage()
+    {
+        $_SESSION['navColor'] = "text-dark";
+        $view = new Template();
+        echo $view->render('views/login.html');
+    }
+
+    public function registerPage()
+    {
+        $_SESSION['navColor'] = "text-dark";
+        $view = new Template();
+        echo $view->render('views/register.html');
+    }
+
     public function properties()
     {
+        $_SESSION['navColor'] = "text-dark";
         $properties = $GLOBALS['db']->getProperties();
         $this->_f3->set('properties', $properties);
         $template = new Template();
@@ -30,14 +46,12 @@ class PropertyController
 
     public function add()
     {
+        $_SESSION['navColor'] = "text-dark";
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sqFoot = $_POST['sqFoot'];
             if ($this->_validator->validSqFoot($sqFoot)) {
                 $_SESSION['sqFoot'] = $sqFoot;
-            }
-            $type = $_POST['type'];
-            if ($this->_validator->validType($type)) {
-                $_SESSION['type'] = $type;
             }
             $bathCount = $_POST['bathCount'];
             if ($this->_validator->validBath($bathCount)) {
@@ -57,6 +71,7 @@ class PropertyController
             }
             //Instantiate a property object
             $property = new Property($sqFoot, $bathCount, $bedCount, $description);
+
             //Write property to the database and grab last insert ID
             $id = $GLOBALS['db']->addProperty($property, $price, $type);
 
