@@ -5,21 +5,23 @@
  */
 class House extends Property
 {
-    public $rentBuy;
-    public $price;
+    private $rentBuy;
+    private $price;
 
     /**
      * House constructor.
      * @param $sqFoot
      * @param $bathCount
      * @param $bedCount
+     * @param $yearBuilt
+     * @param $location
      * @param $description
      * @param $rentBuy
      * @param $price
      */
-    function __construct($sqFoot, $bathCount, $bedCount, $description, $rentBuy, $price)
+    function __construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rentBuy, $price)
     {
-        parent::__construct($sqFoot, $bathCount, $bedCount, $description);
+        parent::__construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
         $this->rentBuy = $rentBuy;
         $this->price = $price;
     }
