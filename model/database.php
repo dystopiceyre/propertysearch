@@ -16,65 +16,47 @@ class PropertyDatabase
     }
 
 //    function getHomeID() {
-//        //1. Define the query
 //        $sql = "SELECT property_id FROM property";
-//        //2. Prepare the statement
-//        //3. Bind the parameters
-//        //4. Execute the statement
-//        //5. Get the result
+//        $statement = $this->_db->prepare($sql);
+//        $statement->execute();
+//        return $statement->fetch(PDO::FETCH_OBJ);
 //    }
 
     function getProperties()
     {
-        //1. Define the query
         $sql = "SELECT * FROM property";
-        //2. Prepare the statement
         $statement = $this->_db->prepare($sql);
-        //3. Bind the parameters
-        //4. Execute the statement
         $statement->execute();
-        //5. Get the result
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getHouses()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM house";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getCondos()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM condo";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getApartments()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM apartment";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getAgents()
     {
         //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
     }
 
     function getUsers()
@@ -84,24 +66,20 @@ class PropertyDatabase
 
     function addProperty($property, $price, $type)
     {
-        //1. Define the query
-        $sql = "INSERT INTO property(sq_Foot, bath_Count, bed_Count, description, price, type)
-                VALUES (:sqFoot, :bathCount, :bedCount, :description, :price, :type)";
 
-        //2. Prepare the statement
+        $sql = "INSERT INTO property(sq_Foot, bath_Count, bed_Count, location, year_built, description, price, type)
+               VALUES (:sqFoot, :bathCount, :bedCount, :location, :yearBuilt, :description, :price, :type)";
         $statement = $this->_db->prepare($sql);
-
-        //3. Bind the parameters
         $statement->bindParam(':sqFoot', $property->getSqFoot(), PDO::PARAM_INT);
         $statement->bindParam(':bathCount', $property->getBathCount());
         $statement->bindParam(':bedCount', $property->getBedCount(), PDO::PARAM_INT);
+        $statement->bindParam(':location', $property->getLocation());
+        $statement->bindParam(':yearBuilt', $property->getYearBuilt(), PDO::PARAM_INT);
         $statement->bindParam(':description', $property->getDescription(), PDO::PARAM_STR);
         $statement->bindParam(':price', $price, PDO::PARAM_INT);
         $statement->bindParam(':type', $type, PDO::PARAM_STR);
-
-        //4. Execute the statement
         $statement->execute();
-        echo "New property added!<br>";
+        echo "<h3>New property added!</h3><br>";
         return $id = $this->_db->lastInsertId();
     }
 
@@ -112,24 +90,26 @@ class PropertyDatabase
         $statement->bindParam(':rent', $house->getRentBuy());
         $statement->bindParam(':prop_id', $id);
         $statement->execute();
-        echo "new house added!<br>";
+        echo "<h3>New house added!</h3><br>";
     }
 
-    function addApartment($id)
+    function addApartment($apartment, $id)
     {
-        $sql = "INSERT INTO apartment(prop_id) VALUE (:prop_id)";
-        $statement = $this->_db->prepare($sql);
-        $statement->bindParam(':prop_id', $id);
-        $statement->execute();
-        echo "New apartment added!<br>";
-    }
-
-    function addCondo($id)
-    {
-        $sql = "INSERT INTO condo(prop_id) VALUE (:prop_id)";
+        $sql = "INSERT INTO apartment(prop_id, floor_level) VALUE (:prop_id, :floor)";
         $statement = $this->_db->prepare($sql);
         $statement->bindParam(':prop_id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':floor', $apartment->getFloorLevel(), PDO::PARAM_INT);
         $statement->execute();
-        echo "New condo added!<br>";
+        echo "<h3>New apartment added!</h3><br>";
+    }
+
+    function addCondo($condo, $id)
+    {
+        $sql = "INSERT INTO condo(prop_id, floor_level) VALUE (:prop_id, :floor)";
+        $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':prop_id', $id, PDO::PARAM_INT);
+        $statement->bindParam('floor', $condo->getFloorLevel(), PDO::PARAM_INT);
+        $statement->execute();
+        echo "<h3>New condo added!</h3><br>";
     }
 }
