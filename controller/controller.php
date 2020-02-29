@@ -50,36 +50,36 @@ class PropertyController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];
-            if ($this->_validator->validType($type, $this->_f3)) {
-                $_SESSION['type'] = $type;
+            if (!$this->_validator->validType($type, $this->_f3)) {
+                $this->_f3->set("errors['type']", "Enter a valid type of property.");
             }
             $sqFoot = $_POST['sqFoot'];
-            if ($this->_validator->validSqFoot($sqFoot)) {
-                $_SESSION['sqFoot'] = $sqFoot;
+            if (!$this->_validator->validSqFoot($sqFoot)) {
+                $this->_f3->set("errors['sqFoot']", "Enter a value of 250 square feet or greater.");
             }
             $bathCount = $_POST['bathCount'];
-            if ($this->_validator->validBath($bathCount)) {
-                $_SESSION['bathCount'] = $bathCount;
+            if (!$this->_validator->validBath($bathCount)) {
+                $this->_f3->set("errors['bathCount']", "Enter only whole and half numbers for the bath count.");
             }
             $bedCount = $_POST['bedCount'];
-            if ($this->_validator->validBed($bedCount)) {
-                $_SESSION['bedCount'] = $bedCount;
+            if (!$this->_validator->validBed($bedCount)) {
+                $this->_f3->set("errors['bedCount']", "Enter only whole for the bedroom count.");
             }
             $price = $_POST['price'];
-            if ($this->_validator->validPrice($price)) {
-                $_SESSION['price'] = $price;
+            if (!$this->_validator->validPrice($price)) {
+                $this->_f3->set("errors['price']", "Enter a whole dollar amount of $500 or greater for the price.");
             }
             $yearBuilt = $_POST['yearBuilt'];
-            if ($this->_validator->validYearBuilt($yearBuilt)) {
-                $_SESSION['yearBuilt'] = $yearBuilt;
+            if (!$this->_validator->validYearBuilt($yearBuilt)) {
+                $this->_f3->set("errors['yearBuilt']", "Enter a year between 1600 and 2020, inclusive.");
             }
             $location = $_POST['location'];
-            if ($this->_validator->validLocation($location)) {
-                $_SESSION['location'] = $location;
+            if (!$this->_validator->validLocation($location)) {
+                $this->_f3->set("errors['location']", "Enter a valid 5 digit zip code.");
             }
             $description = $_POST['description'];
-            if ($this->_validator->validDescription($description)) {
-                $_SESSION['description'] = $description;
+            if (!$this->_validator->validDescription($description)) {
+                $this->_f3->set("errors['description']", "Enter only alphanumeric characters and the following punctuation: ,.!-()");
             }
             //Instantiate a property object
             $property = new Property($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
@@ -90,16 +90,15 @@ class PropertyController
             if ($type == 'house') {
                 if ($_POST['rentbuy'] == 'rent') {
                     $rent = true;
-                }
-                else {
+                } else {
                     $rent = false;
                 }
                 $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
                 $GLOBALS['db']->addHouse($house, $id);
             } else {
                 $floorLevel = $_POST['floor'];
-                if ($this->_validator->validFloor($floorLevel)) {
-                    $_SESSION['floor'] = $floorLevel;
+                if (!$this->_validator->validFloor($floorLevel)) {
+                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
                 }
                 if ($type == 'apartment') {
                     $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
@@ -111,7 +110,6 @@ class PropertyController
                 }
             }
         } else {
-            echo "errors!";
             //Add POST array data to f3 hive for "sticky" form
             $this->_f3->set('property', $_POST);
         }

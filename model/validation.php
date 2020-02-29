@@ -20,7 +20,7 @@ class PropertyValidator
 
     function validDescription($description)
     {
-        return preg_match('/^[A-Za-z ,.]*$/', $description);
+        return preg_match('/^[\w \-,.!()\n\r]*$/', $description);
     }
 
     function validPrice($price)
