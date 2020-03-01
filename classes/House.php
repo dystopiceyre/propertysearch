@@ -5,8 +5,8 @@
  */
 class House extends Property
 {
-    private $rentBuy;
-    private $price;
+    private $_rentBuy;
+    private $_price;
 
     /**
      * House constructor.
@@ -22,8 +22,8 @@ class House extends Property
     function __construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rentBuy, $price)
     {
         parent::__construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
-        $this->rentBuy = $rentBuy;
-        $this->price = $price;
+        $this->_rentBuy = $rentBuy;
+        $this->_price = $price;
     }
 
     /**
@@ -31,15 +31,15 @@ class House extends Property
      */
     public function getRentBuy()
     {
-        return $this->rentBuy;
+        return $this->_rentBuy;
     }
 
     /**
-     * @param $rentBuy
+     * @param $_rentBuy
      */
-    public function setRentBuy($rentBuy)
+    public function setRentBuy($_rentBuy)
     {
-        $this->rentBuy = $rentBuy;
+        $this->_rentBuy = $_rentBuy;
     }
 
     /**
@@ -47,15 +47,15 @@ class House extends Property
      */
     public function getPrice()
     {
-        return $this->price;
+        return $this->_price;
     }
 
     /**
-     * @param $price
+     * @param $_price
      */
-    public function setPrice($price)
+    public function setPrice($_price)
     {
-        $this->price = $price;
+        $this->_price = $_price;
     }
 
 }

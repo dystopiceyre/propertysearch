@@ -5,9 +5,9 @@
  */
 class Person
 {
-    public $phone;
-    public $email;
-    public $name;
+    private $_phone;
+    private $_email;
+    private $_name;
     private $_password;
 
     /**
@@ -15,14 +15,14 @@ class Person
      * @param $phone
      * @param $email
      * @param $name
-     * @param $_password
+     * @param $password
      */
-    function __construct($phone, $email, $name, $_password)
+    function __construct($phone, $email, $name, $password)
     {
-        $this->phone = $phone;
-        $this->email = $email;
-        $this->name = $name;
-        $this->_password = $_password;
+        $this->_phone = $phone;
+        $this->_email = $email;
+        $this->_name = $name;
+        $this->_password = $password;
     }
 
     /**
@@ -30,15 +30,15 @@ class Person
      */
     public function getPhone()
     {
-        return $this->phone;
+        return $this->_phone;
     }
 
     /**
-     * @param $phone
+     * @param $_phone
      */
-    public function setPhone($phone)
+    public function setPhone($_phone)
     {
-        $this->phone = $phone;
+        $this->_phone = $_phone;
     }
 
     /**
@@ -46,15 +46,15 @@ class Person
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->_email;
     }
 
     /**
-     * @param $email
+     * @param $_email
      */
-    public function setEmail($email)
+    public function setEmail($_email)
     {
-        $this->email = $email;
+        $this->_email = $_email;
     }
 
     /**
@@ -62,15 +62,15 @@ class Person
      */
     public function getName()
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
-     * @param $name
+     * @param $_name
      */
-    public function setName($name)
+    public function setName($_name)
     {
-        $this->name = $name;
+        $this->_name = $_name;
     }
 
     /**

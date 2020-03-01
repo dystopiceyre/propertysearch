@@ -6,12 +6,12 @@
 class Property
 {
     private $_homeID;
-    private $sqFoot;
-    private $bathCount;
-    private $bedCount;
-    private $description;
-    private $yearBuilt;
-    private $location;
+    private $_sqFoot;
+    private $_bathCount;
+    private $_bedCount;
+    private $_description;
+    private $_yearBuilt;
+    private $_location;
 
     /**
      * Property constructor.
@@ -24,12 +24,12 @@ class Property
      */
     function __construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description)
     {
-        $this->sqFoot = $sqFoot;
-        $this->bathCount = $bathCount;
-        $this->bedCount = $bedCount;
-        $this->yearBuilt = $yearBuilt;
-        $this->location = $location;
-        $this->description = $description;
+        $this->_sqFoot = $sqFoot;
+        $this->_bathCount = $bathCount;
+        $this->_bedCount = $bedCount;
+        $this->_yearBuilt = $yearBuilt;
+        $this->_location = $location;
+        $this->_description = $description;
     }
 
     /**
@@ -45,15 +45,15 @@ class Property
      */
     public function getSqFoot()
     {
-        return $this->sqFoot;
+        return $this->_sqFoot;
     }
 
     /**
-     * @param $sqFoot
+     * @param $_sqFoot
      */
-    public function setSqFoot($sqFoot)
+    public function setSqFoot($_sqFoot)
     {
-        $this->sqFoot = $sqFoot;
+        $this->_sqFoot = $_sqFoot;
     }
 
     /**
@@ -61,15 +61,15 @@ class Property
      */
     public function getBathCount()
     {
-        return $this->bathCount;
+        return $this->_bathCount;
     }
 
     /**
-     * @param $bathCount
+     * @param $_bathCount
      */
-    public function setBathCount($bathCount)
+    public function setBathCount($_bathCount)
     {
-        $this->bathCount = $bathCount;
+        $this->_bathCount = $_bathCount;
     }
 
     /**
@@ -77,15 +77,15 @@ class Property
      */
     public function getBedCount()
     {
-        return $this->bedCount;
+        return $this->_bedCount;
     }
 
     /**
-     * @param $bedCount
+     * @param $_bedCount
      */
-    public function setBedCount($bedCount)
+    public function setBedCount($_bedCount)
     {
-        $this->bedCount = $bedCount;
+        $this->_bedCount = $_bedCount;
     }
 
     /**
@@ -93,15 +93,15 @@ class Property
      */
     public function getYearBuilt()
     {
-        return $this->yearBuilt;
+        return $this->_yearBuilt;
     }
 
     /**
-     * @param mixed $yearBuilt
+     * @param mixed $_yearBuilt
      */
-    public function setYearBuilt($yearBuilt)
+    public function setYearBuilt($_yearBuilt)
     {
-        $this->yearBuilt = $yearBuilt;
+        $this->_yearBuilt = $_yearBuilt;
     }
 
     /**
@@ -109,15 +109,15 @@ class Property
      */
     public function getLocation()
     {
-        return $this->location;
+        return $this->_location;
     }
 
     /**
-     * @param mixed $location
+     * @param mixed $_location
      */
-    public function setLocation($location)
+    public function setLocation($_location)
     {
-        $this->location = $location;
+        $this->_location = $_location;
     }
 
     /**
@@ -125,15 +125,15 @@ class Property
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->_description;
     }
 
     /**
-     * @param $description
+     * @param $_description
      */
-    public function setDescription($description)
+    public function setDescription($_description)
     {
-        $this->description = $description;
+        $this->_description = $_description;
     }
 
 }

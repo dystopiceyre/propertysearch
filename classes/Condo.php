@@ -5,8 +5,8 @@
  */
 class Condo extends Property
 {
-    private $buyPrice;
-    private $floorLevel;
+    private $_buyPrice;
+    private $_floorLevel;
 
     /**
      * Condo constructor.
@@ -21,8 +21,8 @@ class Condo extends Property
      */
     function __construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description,$floorLevel, $buyPrice) {
         parent::__construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
-        $this->buyPrice = $buyPrice;
-        $this->floorLevel = $floorLevel;
+        $this->_buyPrice = $buyPrice;
+        $this->_floorLevel = $floorLevel;
     }
 
     /**
@@ -30,15 +30,15 @@ class Condo extends Property
      */
     public function getBuyPrice()
     {
-        return $this->buyPrice;
+        return $this->_buyPrice;
     }
 
     /**
-     * @param $buyPrice
+     * @param $_buyPrice
      */
-    public function setBuyPrice($buyPrice)
+    public function setBuyPrice($_buyPrice)
     {
-        $this->buyPrice = $buyPrice;
+        $this->_buyPrice = $_buyPrice;
     }
 
     /**
@@ -46,15 +46,15 @@ class Condo extends Property
      */
     public function getFloorLevel()
     {
-        return $this->floorLevel;
+        return $this->_floorLevel;
     }
 
     /**
-     * @param mixed $floorLevel
+     * @param mixed $_floorLevel
      */
-    public function setFloorLevel($floorLevel)
+    public function setFloorLevel($_floorLevel)
     {
-        $this->floorLevel = $floorLevel;
+        $this->_floorLevel = $_floorLevel;
     }
 
 

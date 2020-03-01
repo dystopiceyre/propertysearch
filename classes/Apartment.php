@@ -5,8 +5,8 @@
  */
 class Apartment extends Property
 {
-    private $rentPrice;
-    private $floorLevel;
+    private $_rentPrice;
+    private $_floorLevel;
 
     /**
      * Apartment constructor.
@@ -22,8 +22,8 @@ class Apartment extends Property
     function __construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rentPrice, $floorLevel)
     {
         parent::__construct($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
-        $this->rentPrice = $rentPrice;
-        $this->floorLevel = $floorLevel;
+        $this->_rentPrice = $rentPrice;
+        $this->_floorLevel = $floorLevel;
     }
 
     /**
@@ -31,15 +31,15 @@ class Apartment extends Property
      */
     public function getRentPrice()
     {
-        return $this->rentPrice;
+        return $this->_rentPrice;
     }
 
     /**
-     * @param $rentPrice
+     * @param $_rentPrice
      */
-    public function setRentPrice($rentPrice)
+    public function setRentPrice($_rentPrice)
     {
-        $this->rentPrice = $rentPrice;
+        $this->_rentPrice = $_rentPrice;
     }
 
     /**
@@ -47,17 +47,16 @@ class Apartment extends Property
      */
     public function getFloorLevel()
     {
-        return $this->floorLevel;
+        return $this->_floorLevel;
     }
 
     /**
-     * @param mixed $floorLevel
+     * @param mixed $_floorLevel
      */
-    public function setFloorLevel($floorLevel)
+    public function setFloorLevel($_floorLevel)
     {
-        $this->floorLevel = $floorLevel;
+        $this->_floorLevel = $_floorLevel;
     }
-
 
 
 }
