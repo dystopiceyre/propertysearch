@@ -16,28 +16,28 @@ class PropertyController
 
     public function landingPage()
     {
-        $_SESSION['navColor'] = "text-white";
+        $_SESSION['navDark'] = false;
         $view = new Template();
         echo $view->render('views/landing-page.html');
     }
 
     public function loginPage()
     {
-        $_SESSION['navColor'] = "text-dark";
+        $_SESSION['navDark'] = true;
         $view = new Template();
         echo $view->render('views/login.html');
     }
 
     public function registerPage()
     {
-        $_SESSION['navColor'] = "text-dark";
+        $_SESSION['navDark'] = true;
         $view = new Template();
         echo $view->render('views/register.html');
     }
 
     public function properties()
     {
-        $_SESSION['navColor'] = "text-dark";
+        $_SESSION['navDark'] = true;
         $properties = $GLOBALS['db']->getProperties();
         $this->_f3->set('properties', $properties);
         $template = new Template();
@@ -46,7 +46,7 @@ class PropertyController
 
     public function add()
     {
-        $_SESSION['navColor'] = "text-dark";
+        $_SESSION['navDark'] = true;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];

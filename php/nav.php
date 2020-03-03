@@ -4,11 +4,16 @@
     $textColor = "text-white";
 }*/
 
+$text = "white";
+if ($_SESSION['navDark']) {
+    $text = "dark";
+}
+
 echo '
 
 <!--Main Navigation-->
 <header>
-  <nav class="navbar shadow-none fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+      <nav class="navbar shadow-none sticky-top navbar-expand-lg scrolling-navbar">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,12 +21,12 @@ echo '
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal ' . $_SESSION['navColor'] . '" href="#">About us</a>
+          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="#">About us</a>
         </li>
       </ul>
       <ul class="navbar-nav nav-flex-icons">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal ' . $_SESSION['navColor'] . '" href="login">Log in</a>
+          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="login">Log in</a>
         </li>
       </ul>
     </div>
