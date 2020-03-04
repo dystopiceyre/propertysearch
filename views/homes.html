@@ -8,94 +8,53 @@
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
+<include href="./php/nav.php"/>
 <div class="container">
-    <nav class="navbar">
-        <span class="navbar-brand mb-0 h1">Property Search</span>
-    </nav>
+    <h1>Houses</h1>
+    <input type="checkbox" name="type" id="house"><label for="house">House</label>
+    <input type="checkbox" name="type" id="apartment"><label for="apartment">Apartment</label>
+    <input type="checkbox" name="type" id="condo"><label for="condo">Condo</label>
     <div class="row">
-        <div class="col">
-            <div class="card-group">
-                <div class="card">
-                    <div class="card-body">
-                        <img class="card-img-top" alt="image placeholder">
-                        <h3 class="card-title">Dummy Card</h3>
-                        <p class="card-text">Dummy card text</p>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTest1">
-                            More Info
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalTest1" tabindex="-1" role="dialog">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">House Info</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <ul>
-                                            <li>Square Footage: {{ @property['sqFoot'] }}</li>
-                                            <li># of Bedrooms: {{ @property['bedCount'] }}</li>
-                                            <li># of Bathrooms {{ @property['bathCount'] }}</li>
-                                            <li>Description: {{ @property['description'] }}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
+        <repeat group="{{ @properties }}" value="{{ @property }}">
+            <div class="card col-3">
+                <h3 class=card-title">{{ @property['type']}} #{{ @property['prop_id'] }}</h3>
+                <img src="" alt="dummyImage">
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#modal{{ @property['prop_id'] }}">
+                    More Info
+                </button>
+                <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModal">House Info</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    <li>Square Footage: {{ @property['sq_foot'] }}</li>
+                                    <li># of Bedrooms: {{ @property['bed_count'] }}</li>
+                                    <li># of Bathrooms {{ @property['bath_count'] }}</li>
+                                    <li>Description: {{ @property['description'] }}</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Close
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <img class="card-img-top" alt="image placeholder">
-                        <h3 class="card-title">Dummy Card</h3>
-                        <p class="card-text">Dummy card text</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <img class="card-img-top" alt="image placeholder">
-                        <h3 class="card-title">Dummy Card</h3>
-                        <p class="card-text">Dummy card text</p>
-                    </div>
-                </div>
             </div>
-            <div class="col">
-                <div class="card-group">
-                    <div class="card">
-                        <div class="card-body">
-                            <img class="card-img-top" alt="image placeholder">
-                            <h3 class="card-title">Dummy Card</h3>
-                            <p class="card-text">Dummy card text</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <img class="card-img-top" alt="image placeholder">
-                            <h3 class="card-title">Dummy Card</h3>
-                            <p class="card-text">Dummy card text</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <img class="card-img-top" alt="image placeholder">
-                            <h3 class="card-title">Dummy Card</h3>
-                            <p class="card-text">Dummy card text</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </repeat>
     </div>
-    <a href="add">
-        <button>Add a New Home!</button>
-    </a>
+    <div class="text-center">
+        <a href="add">
+            <button class="btn btn-primary">Add a New Home!</button>
+        </a>
+    </div>
 </div>
 <script src="/305/bootstrap-tutorial/js/jquery.slim.min.js"></script>
 <script src="/305/bootstrap-tutorial/js/popper.min.js"></script>
