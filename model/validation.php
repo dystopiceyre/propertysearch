@@ -61,7 +61,7 @@ class PropertyValidator
 
     function validBath($bathCount)
     {
-        return !empty($bathCount) && ctype_digit($bathCount) && $bathCount > 0;
+        return !empty($bathCount) && preg_match('/\d(\.5)?/') && $bathCount > 0;
     }
 
     function validBed($bedCount)
@@ -90,9 +90,13 @@ class PropertyValidator
         return in_array($type, array('house', 'apartment', 'condo'));
     }
 
-    function validLocation()
+    function validLocation($location)
     {
         return !empty($location) && ctype_digit($location) && preg_match('/\d{5}/', $location);
+    }
+
+    function validFloor($floor) {
+        return ctype_digit($floor) && $floor >= 1;
     }
 
     public function getErrors()
