@@ -41,6 +41,11 @@ $f3->route('GET|POST /register', function () {
     $controller->registerPage();
 });
 
+$f3->route('GET|POST /welcome', function () {
+    global $controller;
+    $controller->showWelcome();
+});
+
 //Define a properties route
 $f3->route('GET /homes', function () {
     global $controller;

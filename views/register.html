@@ -37,12 +37,44 @@
                             </div>
                         </div>
 
-                        <input type="text" id="fname" name="fname" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="First">
-                        <input type="text" id="lname" name="lname" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Last">
-                        <input type="email" id="email" name="email" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Email">
-                        <input type="password" id="password" name="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Password">
+                        <input type="text" id="fname" name="fname" class="col-sm-6 offset-sm-3 form-control
+                                                                          form-control-lg input-group rounded-0
+                                                                          w-50 mb-4" placeholder="First">
+                        <check if="{{ @errors['fname'] }}">
+                            <span class="text-danger">{{ @errors['fname'] }}</span>
+                        </check>
+
+                        <input type="text" id="lname" name="lname" class="col-sm-6 offset-sm-3 form-control
+                                                                          form-control-lg input-group rounded-0
+                                                                          w-50 mb-4" placeholder="Last">
+                        <check if="{{ @errors['lname'] }}">
+                            <span class="text-danger">{{ @errors['lname'] }}</span>
+                        </check>
+
+                        <input type="email" id="email" name="email" class="col-sm-6 offset-sm-3 form-control
+                                                                           form-control-lg input-group rounded-0
+                                                                           w-50 mb-4" placeholder="Email">
+                        <check if="{{ @errors['email'] }}">
+                            <span class="text-danger">{{ @errors['email'] }}</span>
+                        </check>
+
+                        <input type="password" id="password" name="password" class="col-sm-6 offset-sm-3 form-control
+                                                                                    form-control-lg input-group
+                                                                                    rounded-0 w-50 mb-4"
+                                                                                    placeholder="Password">
+                        <check if="{{ @errors['password'] }}">
+                            <span class="text-danger">{{ @errors['password'] }}</span>
+                        </check>
+
                         <input type="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Repeat password">
-                        <input type="tel" id="phone" name="phone" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50" placeholder="Phone">
+
+                        <input type="tel" id="phone" name="phone" class="col-sm-6 offset-sm-3 form-control
+                                                                         form-control-lg input-group rounded-0
+                                                                         w-50" placeholder="Phone">
+                        <check if="{{ @errors['phone'] }}">
+                            <span class="text-danger">{{ @errors['phone'] }}</span>
+                        </check>
+
                     </div>
 
                     <div class="text-center">

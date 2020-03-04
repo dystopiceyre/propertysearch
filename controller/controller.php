@@ -10,7 +10,7 @@ class PropertyController
     public function __construct($f3)
     {
         $this->_f3 = $f3;
-        $this->_validator = new PropertyValidator();
+        $this->_validator = new PropertyValidator($this->_f3);
         $this->_f3->set('types', array('House', 'Condo', 'Apartment'));
     }
 
@@ -34,43 +34,50 @@ class PropertyController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $fname = "test";
+            $fname = $_POST['fname'];
             $lname = $_POST['lname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $phone = $_POST['phone'];
             $admin = $_POST['admin'];
 
-            $_SESSION['fname'] = $fname;
-            $_SESSION['lname'] = $lname;
-            $_SESSION['email'] = $email;
-            $_SESSION['password'] = $password;
-            $_SESSION['phone'] = $phone;
-            $_SESSION['admin'] = $admin;
+            $this->_f3->set('fname', $fname);
+            $this->_f3->set('lname', $lname);
+            $this->_f3->set('email', $email);
+            $this->_f3->set('password', $password);
+            $this->_f3->set('phone', $phone);
+            $this->_f3->set('admin', $admin);
 
-//            $this->_f3('fname', $fname);
-//            $this->_f3('lname', $lname);
-//            $this->_f3('email', $email);
-//            $this->_f3('password', $password);
-//            $this->_f3('phone', $phone);
-//            $this->_f3('admin', $admin);
+            if ($this->_validator->validRegister()) {
 
-            if ($admin == 1) {
-                $person = new Agent($fname, $lname, $email, $password, $phone);
+                // Write data to Session
+                $_SESSION['fname'] = $fname;
+                $_SESSION['lname'] = $lname;
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                $_SESSION['phone'] = $phone;
+                $_SESSION['admin'] = $admin;
+
+                if ($admin == 1) {
+                    $person = new Agent($fname, $lname, $email, $password, $phone);
+                }
+                else {
+                    $person = new User($fname, $lname, $email, $password, $phone);
+                }
+
+                $_SESSION['person'] = $person;
+                $GLOBALS['db']->addPerson();
             }
-            else {
-                $person = new User($fname, $lname, $email, $password, $phone);
-            }
-
-            $_SESSION['person'] = $person;
-            var_dump($person);
-            var_dump($_SESSION['fname']);
-            var_dump($_SESSION['person']);
-            $GLOBALS['db']->addPerson();
         }
 
         $view = new Template();
         echo $view->render('views/register.html');
+    }
+
+    public function showWelcome()
+    {
+        $view = new Template();
+        echo $view->render('views/welcome.html');
     }
 
     public function properties()

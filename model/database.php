@@ -96,7 +96,7 @@ class PropertyDatabase
         $statement->bindParam(':lname', $_SESSION['person']->getLName());
         $statement->bindParam(':email', $_SESSION['person']->getEmail());
         $statement->bindParam(':password', $_SESSION['person']->getEmail());
-        $statement->bindParam(':phone', $_SESSION['person']->getPassword());
+        $statement->bindParam(':phone', $_SESSION['person']->getPhone());
         $statement->bindParam(':admin', $_SESSION['person']->getAdmin());
 
         // 4. Execute the statement
