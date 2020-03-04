@@ -31,6 +31,44 @@ class PropertyController
     public function registerPage()
     {
         $_SESSION['navDark'] = true;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $fname = "test";
+            $lname = $_POST['lname'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $phone = $_POST['phone'];
+            $admin = $_POST['admin'];
+
+            $_SESSION['fname'] = $fname;
+            $_SESSION['lname'] = $lname;
+            $_SESSION['email'] = $email;
+            $_SESSION['password'] = $password;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['admin'] = $admin;
+
+//            $this->_f3('fname', $fname);
+//            $this->_f3('lname', $lname);
+//            $this->_f3('email', $email);
+//            $this->_f3('password', $password);
+//            $this->_f3('phone', $phone);
+//            $this->_f3('admin', $admin);
+
+            if ($admin == 1) {
+                $person = new Agent($fname, $lname, $email, $password, $phone);
+            }
+            else {
+                $person = new User($fname, $lname, $email, $password, $phone);
+            }
+
+            $_SESSION['person'] = $person;
+            var_dump($person);
+            var_dump($_SESSION['fname']);
+            var_dump($_SESSION['person']);
+            $GLOBALS['db']->addPerson();
+        }
+
         $view = new Template();
         echo $view->render('views/register.html');
     }

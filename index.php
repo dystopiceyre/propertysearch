@@ -9,9 +9,9 @@ require_once('vendor/autoload.php');;
 //Start a session
 session_start();
 
-require('/home/oringhis/propertyConfig.php');
+require('/home/joshicgr/config.php');
 try {
-    $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
+    $db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
@@ -36,7 +36,7 @@ $f3->route('GET /login', function () {
     $controller->loginPage();
 });
 
-$f3->route('GET /register', function () {
+$f3->route('GET|POST /register', function () {
     global $controller;
     $controller->registerPage();
 });

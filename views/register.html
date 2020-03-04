@@ -17,31 +17,47 @@
 <body>
 <include href="./php/nav.php"/>
 
-<div class="container mt-5">
-    <div class="row pt-5">
-        <div class="card card-cascade col-sm-6 offset-sm-3 px-0">
-            <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Register</div>
-            <div class="card-body card-body-cascade text-center mt-3">
-                <div class="row my-5">
-                    <input type="email" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Email">
-                    <input type="text" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Username">
-                    <input type="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Password">
-                    <input type="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Repeat password">
-                    <input type="tel" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50" placeholder="Phone">
-                </div>
+<form method="post" action="#">
+    <div class="container mt-5">
+        <div class="row pt-5">
+            <div class="card card-cascade col-sm-6 offset-sm-3 px-0">
+                <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Register</div>
+                <div class="card-body card-body-cascade text-center mt-3">
+                    <div class="row my-5">
+                        <div class="offset-sm-3 mb-4">
+                            <!-- Buyer radio -->
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="buyer" name="admin" value="0" checked>
+                                <label class="custom-control-label" for="buyer">Buyer</label>
+                            </div>
+                            <!-- Agent radio -->
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="agent" name="admin" value="1">
+                                <label class="custom-control-label" for="agent">Agent</label>
+                            </div>
+                        </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Register">Register</button>
-                </div>
+                        <input type="text" id="fname" name="fname" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="First">
+                        <input type="text" id="lname" name="lname" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Last">
+                        <input type="email" id="email" name="email" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Email">
+                        <input type="password" id="password" name="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Password">
+                        <input type="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Repeat password">
+                        <input type="tel" id="phone" name="phone" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50" placeholder="Phone">
+                    </div>
 
-                <div class="card-link mb-5">
-                    <a class="text-center" href="login">Already have an account? Log in here</a>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Register">Register</button>
+                    </div>
+
+                    <div class="card-link mb-5">
+                        <a class="text-center" href="login">Already have an account? Log in here</a>
+                    </div>
                 </div>
+                <!--            <p class="text-center text-white font-weight-bold pt-2 h2"></p>-->
             </div>
-            <!--            <p class="text-center text-white font-weight-bold pt-2 h2"></p>-->
         </div>
     </div>
-</div>
+</form>
 
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
