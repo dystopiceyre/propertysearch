@@ -12,11 +12,10 @@ class Agent extends Person
      * @param $phone
      * @param $email
      * @param $name
-     * @param $password
+     * @param $_password
      */
-    function __construct($phone, $email, $name, $password, $agentID)
+    function __construct($fname, $lname, $email, $password, $phone)
     {
-        parent::__construct($phone, $email, $name, $password);
-        $this->_agentID = $agentID;
+        parent::__construct($fname, $lname, $email, $password, $phone, 1);
     }
 }

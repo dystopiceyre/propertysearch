@@ -5,24 +5,29 @@
  */
 class Person
 {
-    private $_phone;
-    private $_email;
-    private $_name;
+
+    public $fname;
+    public $lname;
+    public $email;
     private $_password;
+    public $phone;
+    public $admin;
 
     /**
      * Person constructor.
      * @param $phone
      * @param $email
      * @param $name
-     * @param $password
+     * @param $_password
      */
-    function __construct($phone, $email, $name, $password)
+    function __construct($fname, $lname, $email, $password, $phone, $admin)
     {
-        $this->_phone = $phone;
-        $this->_email = $email;
-        $this->_name = $name;
+        $this->fname = $fname;
+        $this->lname = $lname;
+        $this->email = $email;
         $this->_password = $password;
+        $this->phone = $phone;
+        $this->admin = $admin;
     }
 
     /**
@@ -30,15 +35,15 @@ class Person
      */
     public function getPhone()
     {
-        return $this->_phone;
+        return $this->phone;
     }
 
     /**
-     * @param $_phone
+     * @param $phone
      */
-    public function setPhone($_phone)
+    public function setPhone($phone)
     {
-        $this->_phone = $_phone;
+        $this->phone = $phone;
     }
 
     /**
@@ -46,31 +51,47 @@ class Person
      */
     public function getEmail()
     {
-        return $this->_email;
+        return $this->email;
     }
 
     /**
-     * @param $_email
+     * @param $email
      */
-    public function setEmail($_email)
+    public function setEmail($email)
     {
-        $this->_email = $_email;
+        $this->email = $email;
     }
 
     /**
      * @return mixed
      */
-    public function getName()
+    public function getFName()
     {
-        return $this->_name;
+        return $this->fname;
     }
 
     /**
-     * @param $_name
+     * @param $name
      */
-    public function setName($_name)
+    public function setFName($name)
     {
-        $this->_name = $_name;
+        $this->fname = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLName()
+    {
+        return $this->lname;
+    }
+
+    /**
+     * @param $name
+     */
+    public function setLName($name)
+    {
+        $this->lname = $name;
     }
 
     /**
@@ -87,6 +108,22 @@ class Person
     public function setPassword($password)
     {
         $this->_password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
     }
 
 }

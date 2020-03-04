@@ -9,15 +9,14 @@ class User extends Person
 
     /**
      * User constructor.
-     * @param $phone
+     * @param $fname
+     * @param $lname
      * @param $email
-     * @param $name
-     * @param $password
-     * @param $userID
+     * @param $_password
+     * @param $phone
      */
-    function __construct($phone, $email, $name, $password, $userID)
+    function __construct($fname, $lname, $email, $password, $phone)
     {
-        parent::__construct($phone, $email, $name, $password);
-        $this->_userID = $userID;
+        parent::__construct($fname, $lname, $email, $password, $phone, 0);
     }
 }
