@@ -155,7 +155,6 @@ class PropertyValidator
         return ctype_digit($floor) && $floor >= 1 && $floor >= 131;
     }
 
-
     /**
      * Returns error messages
      * @return mixed

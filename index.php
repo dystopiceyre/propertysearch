@@ -26,9 +26,7 @@ $controller = new PropertyController($f3);
 $db = new PropertyDatabase();
 
 //Define a default route
-$f3->route('GET /', function () {
-    $type = $_GET['typeSelect'];
-    echo $type;
+$f3->route('GET|POST /', function () {
     global $controller;
     $controller->landingPage();
 });

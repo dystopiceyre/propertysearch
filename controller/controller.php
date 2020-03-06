@@ -1,6 +1,5 @@
 <?php
 
-
 class PropertyController
 {
 
@@ -19,16 +18,23 @@ class PropertyController
         $_SESSION['navDark'] = false;
         $view = new Template();
         echo $view->render('views/landing-page.html');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $type = $_POST['typeSelect'];
+            $_SESSION['type'] = $type;
+            $this->_f3->reroute('/homes');
+        }
     }
 
-    public function loginPage()
+    public
+    function loginPage()
     {
         $_SESSION['navDark'] = true;
         $view = new Template();
         echo $view->render('views/login.html');
     }
 
-    public function registerPage()
+    public
+    function registerPage()
     {
         $_SESSION['navDark'] = true;
 
@@ -60,8 +66,7 @@ class PropertyController
 
                 if ($admin == 1) {
                     $person = new Agent($fname, $lname, $email, $password, $phone);
-                }
-                else {
+                } else {
                     $person = new User($fname, $lname, $email, $password, $phone);
                 }
 
@@ -74,22 +79,38 @@ class PropertyController
         echo $view->render('views/register.html');
     }
 
-    public function showWelcome()
+    public
+    function showWelcome()
     {
         $view = new Template();
         echo $view->render('views/welcome.html');
     }
 
-    public function properties()
+    public
+    function properties()
     {
+        $type = $_SESSION['type'];
         $_SESSION['navDark'] = true;
-        $properties = $GLOBALS['db']->getProperties();
-        $this->_f3->set('properties', $properties);
+        if ($type == 'House') {
+            $houses = $GLOBALS['db']->getHouses();
+            $this->_f3->set('properties', $houses);
+        } else if ($type == 'Condo') {
+            $condos = $GLOBALS['db']->getCondos();
+            $this->_f3->set('properties', $condos);
+        } else if ($type == 'Apartment') {
+            $apartments = $GLOBALS['db']->getApartments();
+            $this->_f3->set('properties', $apartments);
+        } else {
+            //show all types
+            $properties = $GLOBALS['db']->getProperties();
+            $this->_f3->set('properties', $properties);
+        }
         $template = new Template();
         echo $template->render('views/homes.html');
     }
 
-    public function add()
+    public
+    function add()
     {
         $_SESSION['navDark'] = true;
 

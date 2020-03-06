@@ -5,11 +5,14 @@ class PropertyDatabase
     //PDO object
     private $_db;
 
+    /**
+     * PropertyDatabase constructor.
+     */
     function __construct()
     {
-        require('/home/joshicgr/config.php');
+        require('/home/oringhis/propertyConfig.php');
         try {
-            $this->_db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $this->_db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -24,65 +27,77 @@ class PropertyDatabase
 //        //5. Get the result
 //    }
 
+    /**
+     * Retrieves properties of all types from db
+     * @return array
+     */
     function getProperties()
     {
-        //1. Define the query
-        $sql = "SELECT * FROM property";
-        //2. Prepare the statement
+        $sql = "SELECT * FROM property ORDER BY prop_id";
         $statement = $this->_db->prepare($sql);
-        //3. Bind the parameters
-        //4. Execute the statement
         $statement->execute();
-        //5. Get the result
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves properties of house type from db
+     * @return array
+     */
     function getHouses()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM property INNER JOIN house ON property.prop_id = house.prop_id ORDER BY property.prop_id";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves properties of condo type from db
+     * @return array
+     */
     function getCondos()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM property INNER JOIN condo ON property.prop_id = condo.prop_id ORDER BY property.prop_id";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves properties of apartment type from db
+     * @return array
+     */
     function getApartments()
     {
-        //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
+        $sql = "SELECT * FROM property INNER JOIN apartment ON property.prop_id = apartment.prop_id ORDER BY property.prop_id";
+        $statement = $this->_db->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves agents from db
+     */
     function getAgents()
     {
         //TODO
-        //1. Define the query
-        //2. Prepare the statement
-        //3. Bind the parameters
-        //4. Execute the statement
-        //5. Get the result
     }
 
+    /**
+     * Retrieves users (buyers) from db
+     */
     function getUsers()
     {
         //TODO
     }
 
-    function addPerson() {
+    /**
+     * Adds a person (agent or buyer) to db
+     * Returns the person's id
+     * @return string
+     */
+    function addPerson()
+    {
 
         // 1. Define the query
         $sql = "INSERT INTO users (user_first, user_last, user_email, user_password, user_phone, user_admin)
@@ -106,6 +121,14 @@ class PropertyDatabase
         return $user = $this->_db->lastInsertId();
     }
 
+    /**
+     * Adds a property of a specified type to the db
+     * Returns the property's id
+     * @param $property
+     * @param $price
+     * @param $type
+     * @return string
+     */
     function addProperty($property, $price, $type)
     {
         //1. Define the query
@@ -129,6 +152,11 @@ class PropertyDatabase
         return $id = $this->_db->lastInsertId();
     }
 
+    /**
+     * Adds house info to a previously created property
+     * @param $house
+     * @param $id
+     */
     function addHouse($house, $id)
     {
         $sql = "INSERT INTO house(prop_id, rent) VALUES (:prop_id, :rent)";
@@ -139,6 +167,9 @@ class PropertyDatabase
         echo "new house added!<br>";
     }
 
+    /** Adds apartment info to a previously created property
+     * @param $id
+     */
     function addApartment($id)
     {
         $sql = "INSERT INTO apartment(prop_id) VALUE (:prop_id)";
@@ -148,6 +179,9 @@ class PropertyDatabase
         echo "New apartment added!<br>";
     }
 
+    /** Adds condo info to a previously created property
+     * @param $id
+     */
     function addCondo($id)
     {
         $sql = "INSERT INTO condo(prop_id) VALUE (:prop_id)";
