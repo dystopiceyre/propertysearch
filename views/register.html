@@ -19,15 +19,16 @@
 
 <form method="post" action="#">
     <div class="container mt-5">
-        <div class="row pt-5">
-            <div class="card card-cascade col-sm-6 offset-sm-3 px-0">
+        <div class="row pt-3">
+            <div class="card card-cascade col-sm-6 offset-sm-3 px-0 mb-5">
                 <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Register</div>
                 <div class="card-body card-body-cascade text-center mt-3">
-                    <div class="row my-5">
-                        <div class="offset-sm-3 mb-4">
+                    <div class="row my-4">
+                        <div class="col-sm-6 offset-sm-3 mb-4">
                             <!-- Buyer radio -->
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="buyer" name="admin" value="0" checked>
+                            <div class="custom-control custom-radio custom-control-inline mr-5">
+                                <input type="radio" class="custom-control-input" id="buyer" name="admin" value="0"
+                                                                                                            checked>
                                 <label class="custom-control-label" for="buyer">Buyer</label>
                             </div>
                             <!-- Agent radio -->
@@ -37,44 +38,52 @@
                             </div>
                         </div>
 
-                        <input type="text" id="fname" name="fname" class="col-sm-6 offset-sm-3 form-control
-                                                                          form-control-lg input-group rounded-0
-                                                                          w-50 mb-4" placeholder="First">
                         <check if="{{ @errors['fname'] }}">
-                            <span class="text-danger">{{ @errors['fname'] }}</span>
+                            <span class="offset-sm-2 text-danger">{{ @errors['fname'] }}</span>
                         </check>
+                        <input type="text" id="fname" name="fname" class="col-sm-8 offset-sm-2 form-control
+                                                                          form-control-lg input-group mb-4"
+                                                                            placeholder="First">
 
-                        <input type="text" id="lname" name="lname" class="col-sm-6 offset-sm-3 form-control
-                                                                          form-control-lg input-group rounded-0
-                                                                          w-50 mb-4" placeholder="Last">
                         <check if="{{ @errors['lname'] }}">
-                            <span class="text-danger">{{ @errors['lname'] }}</span>
+                            <span class="offset-sm-2 text-danger">{{ @errors['lname'] }}</span>
                         </check>
+                        <input type="text" id="lname" name="lname" class="col-sm-8 offset-sm-2 form-control
+                                                                          form-control-lg input-group mb-4"
+                                                                            placeholder="Last">
 
-                        <input type="email" id="email" name="email" class="col-sm-6 offset-sm-3 form-control
-                                                                           form-control-lg input-group rounded-0
-                                                                           w-50 mb-4" placeholder="Email">
                         <check if="{{ @errors['email'] }}">
-                            <span class="text-danger">{{ @errors['email'] }}</span>
+                            <span class="offset-sm-2 text-danger">{{ @errors['email'] }}</span>
                         </check>
+                        <input type="email" id="email" name="email" class="col-sm-8 offset-sm-2 form-control
+                                                                           form-control-lg input-group mb-4"
+                                                                            placeholder="Email">
 
-                        <input type="password" id="password" name="password" class="col-sm-6 offset-sm-3 form-control
-                                                                                    form-control-lg input-group
-                                                                                    rounded-0 w-50 mb-4"
-                                                                                    placeholder="Password">
                         <check if="{{ @errors['password'] }}">
-                            <span class="text-danger">{{ @errors['password'] }}</span>
+                            <span class="offset-sm-2 text-danger">{{ @errors['password'] }}</span>
                         </check>
+                        <input type="password" id="password" name="password" class="col-sm-8 offset-sm-2 form-control
+                                                                                    form-control-lg input-group mb-4"
+                                                                                    placeholder="Password">
 
-                        <input type="password" class="col-sm-6 offset-sm-3 form-control form-control-lg input-group rounded-0 w-50 mb-4" placeholder="Repeat password">
+                        <check if="{{ @errors['password'] }}">
+                            <false>
+                                <check if="{{ @errors['passRepeat'] }}">
+                                    <span class="offset-sm-2 text-danger">{{ @errors['passRepeat'] }}</span>
+                                </check>
+                            </false>
+                        </check>
+                        <input type="password" id="passRepeat" name="passRepeat" class="col-sm-8 offset-sm-2
+                                                                                        form-control form-control-lg
+                                                                                        input-group mb-4"
+                                                                                        placeholder="Repeat password">
 
-                        <input type="tel" id="phone" name="phone" class="col-sm-6 offset-sm-3 form-control
-                                                                         form-control-lg input-group rounded-0
-                                                                         w-50" placeholder="Phone">
                         <check if="{{ @errors['phone'] }}">
-                            <span class="text-danger">{{ @errors['phone'] }}</span>
+                            <span class="offset-sm-2 text-danger">{{ @errors['phone'] }}</span>
                         </check>
-
+                        <input type="tel" id="phone" name="phone" class="col-sm-8 offset-sm-2 form-control
+                                                                         form-control-lg input-group"
+                                                                            placeholder="Phone">
                     </div>
 
                     <div class="text-center">
