@@ -44,6 +44,7 @@ class PropertyController
             $lname = $_POST['lname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $passRepeat = $_POST['passRepeat'];
             $phone = $_POST['phone'];
             $admin = $_POST['admin'];
 
@@ -51,6 +52,7 @@ class PropertyController
             $this->_f3->set('lname', $lname);
             $this->_f3->set('email', $email);
             $this->_f3->set('password', $password);
+            $this->_f3->set('passRepeat', $passRepeat);
             $this->_f3->set('phone', $phone);
             $this->_f3->set('admin', $admin);
 
@@ -61,6 +63,7 @@ class PropertyController
                 $_SESSION['lname'] = $lname;
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
+                $_SESSION['passRepeat'] = $passRepeat;
                 $_SESSION['phone'] = $phone;
                 $_SESSION['admin'] = $admin;
 

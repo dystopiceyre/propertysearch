@@ -21,14 +21,28 @@ class PropertyValidator
     {
         $isValid = true;
 
+        // Checks if first name entered is valid
         if (!$this->validName($this->_f3->get('fname'))) {
             $isValid = false;
             $this->_f3->set("errors['fname']", "Please enter a valid first name");
         }
 
+        // Checks if last name entered is valid
         if (!$this->validName($this->_f3->get('lname'))) {
             $isValid = false;
             $this->_f3->set("errors['lname']", "Please enter a valid last name");
+        }
+
+        // Checks if password entered follows guidelines
+        if (!$this->validPassword($this->_f3->get('password'))) {
+            $isValid = false;
+            $this->_f3->set("errors['password']", "Password must be minimum 7 characters!");
+        }
+
+        // Checks if the repeated password matches the original
+        if ($this->_f3->get('passRepeat') != $this->_f3->get('password')) {
+            $isValid = false;
+            $this->_f3->set("errors['passRepeat']", "Passwords must match!");
         }
 
         if (!$this->_f3->get('email')) {
@@ -49,7 +63,13 @@ class PropertyValidator
      */
     function validName($name)
     {
-        return preg_match('/^[a-zA-Z]/', $name);
+        return preg_match('/[a-z]/i', $name);
+    }
+
+    function validPassword($pass)
+    {
+        $regex = "/[\w\d]{7}/";
+        return preg_match($regex, $pass);
     }
 
     /** Function to validate the phone number by checking length and what characters were put in
