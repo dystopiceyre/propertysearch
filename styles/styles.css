@@ -18,6 +18,10 @@ div {
     padding: 5px;
 }
 
+.err {
+    color: darkred;
+}
+
 .hidden {
     display: none;
 }

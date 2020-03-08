@@ -2,11 +2,10 @@ $('#type').on('change', function () {
     let type = $('input[name="type"]:checked').val();
     if (type === 'house') {
         rentbuy();
-    }
-    if (type === 'apartment' || type === 'condo') {
+    } else if (type === 'apartment' || type === 'condo') {
         floor();
     } else {
-        alert('Please choose a given property type');
+        $('#typeErr').html("Please choose a valid property type");
     }
 });
 

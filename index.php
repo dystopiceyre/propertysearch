@@ -9,9 +9,9 @@ require_once('vendor/autoload.php');;
 //Start a session
 session_start();
 
-require('/home/joshicgr/config.php');
+require('/home/oringhis/propertyConfig.php');
 try {
-    $db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+    $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
 } catch (PDOException $e) {
     echo $e->getMessage();
 }
@@ -26,7 +26,7 @@ $controller = new PropertyController($f3);
 $db = new PropertyDatabase();
 
 //Define a default route
-$f3->route('GET /', function () {
+$f3->route('GET|POST /', function () {
     global $controller;
     $controller->landingPage();
 });

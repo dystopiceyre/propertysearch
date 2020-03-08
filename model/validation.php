@@ -3,12 +3,22 @@
 class PropertyValidator
 {
     private $_f3;
+    private $_errors;
 
-    public function __construct($_f3) {
+    /**
+     * PropertyValidator constructor.
+     * @param $_f3
+     */
+    public function __construct($_f3)
+    {
         $this->_f3 = $_f3;
     }
 
-    function validRegister() {
+    /**
+     * @return bool
+     */
+    function validRegister()
+    {
         $isValid = true;
 
         if (!$this->validName($this->_f3->get('fname'))) {
@@ -33,53 +43,122 @@ class PropertyValidator
 
         return $isValid;
     }
-    /* Function to validate if the variable passed in complies with the rules for what a name can have
+
+    /** Function to validate if the variable passed in complies with the rules for what a name can have
      * @return boolean
      */
-    function validName($name) {
+    function validName($name)
+    {
         return preg_match('/^[a-zA-Z]/', $name);
     }
 
-    /* Function to validate the phone number by checking length and what characters were put in
+    /** Function to validate the phone number by checking length and what characters were put in
      * @return boolean
      */
-    function validPhone($PN) {
+    function validPhone($PN)
+    {
         return preg_match('/^[0-9]{9}/', $PN);
     }
 
     // ----------------------------- Home validation below -----------------------------
 
+    /**
+     * Ensures square footage is within a valid range
+     * @param $sqFoot
+     * @return bool
+     */
     function validSqFoot($sqFoot)
     {
-        return ctype_digit($sqFoot);
+        return !empty($sqFoot) && ctype_digit($sqFoot) && $sqFoot >= 250 && $sqFoot <= 100000;
     }
 
+    /**
+     * Ensures bath count is within a valid range
+     * @param $bathCount
+     * @return bool
+     */
     function validBath($bathCount)
     {
-        return ctype_digit($bathCount);
+        return !empty($bathCount) && preg_match('/\d+(\.5)?/') && $bathCount > 0 && $bathCount <= 50;
     }
 
+    /**
+     * Ensures bed count is within a valid range
+     * @param $bedCount
+     * @return bool
+     */
     function validBed($bedCount)
     {
-        return ctype_digit($bedCount);
+        return !empty($bedCount) && ctype_digit($bedCount) && $bedCount > 0 && $bedCount <= 50;
     }
 
+    /**
+     * Ensures the description only has alphanumeric characters
+     * and chosen punctuation marks
+     * @param $description
+     * @return false|int
+     */
     function validDescription($description)
     {
-        return preg_match('/^[A-Za-z ,.]*$/', $description);
+        return preg_match('/^[A-Za-z0-9 ,.]*$/', $description);
     }
 
-    public function validPrice($price)
+    /**
+     * Ensures price is within a valid range
+     * @param $price
+     * @return bool
+     */
+    function validPrice($price)
     {
-        return ctype_digit($price) && $price > 500;
+        return !empty($price) && ctype_digit($price) && $price > 500;
     }
 
+    /**
+     * Ensures year built is within a valid range
+     * @param $yearBuilt
+     * @return bool
+     */
+    function validYearBuilt($yearBuilt)
+    {
+        return ctype_digit($yearBuilt) && $yearBuilt >= 1600 && $yearBuilt <= 2020;
+    }
+
+    /**
+     * Ensures chosen type is in F3 type array
+     * @param $type
+     * @return bool
+     */
     public function validType($type)
     {
         //TODO: use F3 array of type
-        return in_array($type, array('house','apartment','condo'));
+        return in_array($type, array('house', 'apartment', 'condo'));
     }
 
+    /**
+     * Ensures zip code matches US 5 digit with optional +4 pattern
+     * @param $location
+     * @return bool
+     */
+    function validLocation($location)
+    {
+        return !empty($location) && preg_match('/\d{5}(-\d{4})?/', $location);
+    }
+
+    /**
+     * Ensures floor choice is within valid range
+     * floor max is tallest residential building
+     * @param $floor
+     * @return bool
+     */
+    function validFloor($floor)
+    {
+        return ctype_digit($floor) && $floor >= 1 && $floor >= 131;
+    }
+
+    /**
+     * Returns error messages
+     * @return mixed
+     */
     public function getErrors()
     {
         return $this->_errors;
