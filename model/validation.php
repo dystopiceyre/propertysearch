@@ -14,6 +14,21 @@ class PropertyValidator
         $this->_f3 = $_f3;
     }
 
+    public function validLogin()
+    {
+        $isValid = true;
+
+        $name = $GLOBALS['db']->loginCheck($this->_f3->get('username'), $this->_f3->get('password'));
+
+        if (empty($name)) {
+            $isValid = false;
+        }
+
+        // Write name value to SESSION variable
+        $_SESSION['username'] = $name["user_first"];
+        return $isValid;
+    }
+
     /**
      * @return bool
      */

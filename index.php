@@ -31,7 +31,7 @@ $f3->route('GET|POST /', function () {
     $controller->landingPage();
 });
 
-$f3->route('GET /login', function () {
+$f3->route('GET|POST /login', function () {
     global $controller;
     $controller->loginPage();
 });

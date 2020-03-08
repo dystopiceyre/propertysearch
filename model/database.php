@@ -92,6 +92,28 @@ class PropertyDatabase
     }
 
     /**
+     * Checks if the login information provided exists in the database
+     * @param $username
+     * @param $password
+     * @return bool
+     */
+    function loginCheck($username, $password)
+    {
+        $sql = "SELECT users.user_first FROM users
+                WHERE user_email = :username
+                AND user_password = :password";
+
+        $statement = $this->_db->prepare($sql);
+
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':password', $password);
+
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Adds a person (agent or buyer) to db
      * Returns the person's id
      * @return string

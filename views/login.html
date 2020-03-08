@@ -17,28 +17,30 @@
 <body>
 <include href="./php/nav.php"/>
 
-<div class="container mt-5">
-    <div class="row pt-3">
-        <div class="card card-cascade col-sm-6 offset-sm-3 px-0 mb-5">
-            <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Login</div>
-            <div class="card-body card-body-cascade text-center mt-3">
-                <div class="row my-4">
-                    <input type="email" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group mb-4" placeholder="Email">
-                    <input type="password" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group" placeholder="Password">
-                </div>
+<form method="post" action="#">
+    <div class="container mt-5">
+        <div class="row pt-3">
+            <div class="card card-cascade col-sm-6 offset-sm-3 px-0 mb-5">
+                <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Login</div>
+                <div class="card-body card-body-cascade text-center mt-3">
+                    <div class="row my-4">
+                        <input type="email" id="email" name="email" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group mb-4" placeholder="Email">
+                        <input type="password" id="password" name="password" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group" placeholder="Password">
+                    </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Login">Login</button>
-                </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Login">Login</button>
+                    </div>
 
-                <div class="card-link mb-5">
-                    <a class="text-center" href="register">New user? Register here</a>
+                    <div class="card-link mb-5">
+                        <a class="text-center" href="register">New user? Register here</a>
+                    </div>
                 </div>
+                <!--            <p class="text-center text-white font-weight-bold pt-2 h2"></p>-->
             </div>
-<!--            <p class="text-center text-white font-weight-bold pt-2 h2"></p>-->
         </div>
     </div>
-</div>
+</form>
 
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
