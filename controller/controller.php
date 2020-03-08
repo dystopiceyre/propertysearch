@@ -33,6 +33,10 @@ class PropertyController
         $_SESSION['navDark'] = true;
         echo $_SESSION['username'];
 
+        if ($_SESSION['username']) {
+            $this->_f3->reroute('/homes');
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $username = $_POST['email'];
