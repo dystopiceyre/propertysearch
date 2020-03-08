@@ -27,8 +27,7 @@ class PropertyController
         echo $view->render('views/landing-page.html');
     }
 
-    public
-    function loginPage()
+    public function loginPage()
     {
         $_SESSION['navDark'] = true;
         echo $_SESSION['username'];
@@ -45,7 +44,6 @@ class PropertyController
             $this->_f3->set('username', $username);
             $this->_f3->set('password', $password);
 
-            echo "yup!";
             if ($this->_validator->validLogin()) {
 
                 $this->_f3->reroute('/homes');
@@ -57,8 +55,12 @@ class PropertyController
         echo $view->render('views/login.html');
     }
 
-    public
-    function registerPage()
+    public function logout()
+    {
+        $this->_f3->reroute('/login');
+    }
+
+    public function registerPage()
     {
         $_SESSION['navDark'] = true;
 

@@ -36,6 +36,12 @@ $f3->route('GET|POST /login', function () {
     $controller->loginPage();
 });
 
+$f3->route('GET|POST /logout', function () {
+    session_destroy();
+    global $controller;
+    $controller->logout();
+});
+
 $f3->route('GET|POST /register', function () {
     global $controller;
     $controller->registerPage();

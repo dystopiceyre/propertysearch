@@ -22,6 +22,7 @@ class PropertyValidator
 
         if (empty($name)) {
             $isValid = false;
+            $this->_f3->set("errors['login']", "Invalid login");
         }
 
         // Write name value to SESSION variable

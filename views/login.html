@@ -14,7 +14,7 @@
 
     <title>Login</title>
 </head>
-<body>
+<body class="bg-light">
 <include href="./php/nav.php"/>
 
 <form method="post" action="#">
@@ -23,6 +23,14 @@
             <div class="card card-cascade col-sm-6 offset-sm-3 px-0 mb-5">
                 <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Login</div>
                 <div class="card-body card-body-cascade text-center mt-3">
+                    <check if="{{ @errors['login'] }}">
+                        <true>
+                            <p class='text-center table-danger rounded-0 mb-4 py-2'>{{ @errors['login'] }}</p>
+                        </true>
+                        <false>
+                            <p class='text-center rounded-0 mb-4 py-2'>&nbsp;</p>
+                        </false>
+                    </check>
                     <div class="row my-4">
                         <input type="email" id="email" name="email" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group mb-4" placeholder="Email">
                         <input type="password" id="password" name="password" class="col-sm-8 offset-sm-2 form-control form-control-lg input-group" placeholder="Password">

@@ -9,6 +9,13 @@ if ($_SESSION['navDark']) {
     $text = "dark";
 }
 
+$loggedin = "Log In";
+$route = "login";
+if ($_SESSION['username']) {
+    $loggedin = "Log out";
+    $route = "logout";
+}
+
 echo '
 
 <!--Main Navigation-->
@@ -33,7 +40,7 @@ echo '
       </ul>
       <ul class="navbar-nav nav-flex-icons">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="login">Log in</a>
+          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="' . $route . '">' . $loggedin . '</a>
         </li>
       </ul>
     </div>
