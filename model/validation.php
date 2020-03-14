@@ -115,7 +115,7 @@ class PropertyValidator
      */
     function validBath($bathCount)
     {
-        return !empty($bathCount) && preg_match('/\d+(\.5)?/') && $bathCount > 0 && $bathCount <= 50;
+        return !empty($bathCount) && preg_match('/\d+(\.5)?/', $bathCount) && $bathCount > 0 && $bathCount <= 50;
     }
 
     /**

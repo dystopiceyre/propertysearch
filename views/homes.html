@@ -20,12 +20,9 @@
 <include href="./php/nav.php"/>
 
 <div class="mx-5">
-    <!--<input type="checkbox" name="type" id="house"><label for="house">House</label>
-    <input type="checkbox" name="type" id="apartment"><label for="apartment">Apartment</label>
-    <input type="checkbox" name="type" id="condo"><label for="condo">Condo</label>-->
     <div class="mx-5 mt-5">
         <p class="h3 font-weight-normal">Filters</p>
-        <form>
+        <form method="get" action="#">
             <div class="row mb-5">
                 <div class="col-md-2 form-group">
                     <select class="form-control-lg input-group opacity rounded-0" id="typeSelect" name="typeSelect">
@@ -47,20 +44,20 @@
                 <div class="col-md-2 form-group">
                     <button class="btn btn-dark">Search</button>
                 </div>
-
-                <div class="ml-auto">
-                    <!--        TODO: make only viewable for admin-->
-                    <a href="add">
-                        <button class="btn btn-primary">Add a New Home!</button>
-                    </a>
-                </div>
             </div>
         </form>
+
+        <div class="ml-auto text-center">
+            <!--        TODO: make only viewable for admin-->
+            <a href="add" target="_blank">
+                <button class="btn btn-primary">Add a New Home!</button>
+            </a>
+        </div>
         <div class="row">
             <repeat group="{{ @properties }}" value="{{ @property }}">
                 <div class="col-sm-3">
                     <a class="card mb-5" data-toggle="modal"
-                         data-target="#modal{{ @property['prop_id'] }}">
+                       data-target="#modal{{ @property['prop_id'] }}">
                         <img src="./images/placeholder-image.jpg" class="card-img-top" alt="dummyImage">
                         <div class="card-body">
                             <div class="text-center">
@@ -108,7 +105,8 @@
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/js/mdb.min.js"></script>
 </body>
