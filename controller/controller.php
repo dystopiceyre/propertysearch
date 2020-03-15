@@ -208,8 +208,12 @@ class PropertyController
     public
     function properties()
     {
-        $type = $_SESSION['type'];
         $_SESSION['navDark'] = true;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $type = $_SESSION['type'];
+        } else {
+            $type = $_GET['typeSelect'];
+        }
         if ($type == 'House') {
             $houses = $GLOBALS['db']->getHouses();
             $this->_f3->set('properties', $houses);

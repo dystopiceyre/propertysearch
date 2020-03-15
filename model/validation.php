@@ -115,7 +115,7 @@ class PropertyValidator
      */
     function validBath($bathCount)
     {
-        return !empty($bathCount) && preg_match('/\d+(\.5)?/') && $bathCount > 0 && $bathCount <= 50;
+        return !empty($bathCount) && preg_match('/\d+(\.5)?/', $bathCount) && $bathCount > 0 && $bathCount <= 10;
     }
 
     /**
@@ -125,7 +125,7 @@ class PropertyValidator
      */
     function validBed($bedCount)
     {
-        return !empty($bedCount) && ctype_digit($bedCount) && $bedCount > 0 && $bedCount <= 50;
+        return !empty($bedCount) && ctype_digit($bedCount) && $bedCount > 0 && $bedCount <= 10;
     }
 
     /**
@@ -146,7 +146,7 @@ class PropertyValidator
      */
     function validPrice($price)
     {
-        return !empty($price) && ctype_digit($price) && $price > 500;
+        return !empty($price) && ctype_digit($price) && $price > 500 && $price <= 50000000;
     }
 
     /**
