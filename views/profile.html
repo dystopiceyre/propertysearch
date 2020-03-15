@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
+
+    <title>Profile</title>
+</head>
+<body class="bg-light">
+<include href="./php/nav.php"/>
+
+<form method="post" action="#">
+    <div class="container mt-5">
+        <div class="row pt-3">
+            <div class="card card-cascade col-sm-8 offset-sm-2 px-0 mb-5">
+                <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">My Profile</div>
+                <div class="card-body card-body-cascade">
+
+                    <check if="{{ @SESSION['successProf'] }}">
+                        <true>
+                            <p class='text-center table-success rounded-0 py-2'>{{ @SESSION['successProf'] }}</p>
+                        </true>
+                        <false>
+                            <check if="{{ @errors['invalidProf'] }}">
+                                <true>
+                                    <p class='text-center table-danger rounded-0 py-2'>{{ @errors['invalidProf'] }}</p>
+                                </true>
+                                <false>
+                                    <p class='text-center rounded-0 py-2'>&nbsp;</p>
+                                </false>
+                            </check>
+                        </false>
+                    </check>
+
+                    <div class="row text-center">
+                        <div class="col-sm-6 offset-3 mb-4">
+                            <p id="nameTitle" class="h2" style> {{ @SESSION['fname'] }} {{ @SESSION['lname'] }}</p>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input id="newFName" name="newFName" class="form-control form-control-lg" type="text"
+                                           value="{{ @SESSION['fname'] }}" style="display: none;">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input id="newLName" name="newLName" class="form-control form-control-lg" type="text"
+                                           value="{{ @SESSION['lname'] }}" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 offset-3 mb-4">
+                            <p class="h4 pb-2"><u>Email</u></p>
+                            <p id="emailDisplay" class="h5 font-weight-normal">{{ @SESSION['email'] }}</p>
+                            <input id="emailEditDisplay" class="form-control form-control-lg" type="email"
+                                   id="newEmail" name="newEmail" value="{{ @SESSION['email'] }}"
+                                   style="display: none;">
+                        </div>
+                        <div class="col-sm-6 offset-3 mb-4">
+                            <p class="h4 pb-2"><u>Password</u></p>
+                            <p id="passDisplay" class="h5 font-weight-normal">Secure</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input id="newPassword" class="form-control form-control-lg" type="password"
+                                           name="newPassword" placeholder="New pass"
+                                           style="display: none;">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input id="newPassRepeat" class="form-control form-control-lg" type="password"
+                                           name="newPassRepeat" placeholder="Repeat pass"
+                                           style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 offset-3 mb-4">
+                            <p class="h4 pb-2"><u>Phone</u></p>
+                            <input id="phoneEditDisplay" class="form-control form-control-lg" type="tel"
+                                   id="newPhone" name="newPhone" value="{{ @SESSION['phone'] }}"
+                                   style="display: none;">
+                            <span id="phoneDisplay" class="h5 font-weight-normal">{{ @SESSION['phone'] }}</span>
+                        </div>
+
+
+
+                        <div class="col-sm-6 offset-3">
+                            <p class="h4" style><u>Status</u></p>
+                            <p id="statusDisplay" class="h5 font-weight-normal">
+                                <check if="{{ @SESSION['admin'] }}">
+                                    <true>
+                                        Agent
+                                    </true>
+                                    <false>
+                                        Buyer
+                                    </false>
+                                </check>
+                            </p>
+
+                            <div id="statusRadioDisplay" style="display: none;">
+                                <check if="{{ @SESSION['admin'] }}">
+                                    <true>
+                                        <!-- Buyer radio -->
+                                        <div class="custom-control custom-radio custom-control-inline mr-5">
+                                            <input type="radio" class="custom-control-input" id="buyer" name="admin"
+                                                   value="0">
+                                            <label class="custom-control-label" for="buyer">Buyer</label>
+                                        </div>
+                                        <!-- Agent radio -->
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" id="agent" name="admin"
+                                                   value="1" checked>
+                                            <label class="custom-control-label" for="agent">Agent</label>
+                                        </div>
+                                    </true>
+                                    <false>
+                                        <!-- Buyer radio -->
+                                        <div class="custom-control custom-radio custom-control-inline mr-5">
+                                            <input type="radio" class="custom-control-input" id="buyer" name="admin"
+                                                   value="0" checked>
+                                            <label class="custom-control-label" for="buyer">Buyer</label>
+                                        </div>
+                                        <!-- Agent radio -->
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" id="agent" name="admin"
+                                                   value="1">
+                                            <label class="custom-control-label" for="agent">Agent</label>
+                                        </div>
+                                    </false>
+                                </check>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-primary text-center" type="button" id="editBtn">
+                        <i class="fas fa-edit fa-lg" aria-hidden="true"></i></button>
+                    </div>
+
+                    <button type="submit" id="save" class="btn btn-lg btn-primary text-center mr-5 float-right"
+                            value="Save" style="display: none;">Save</button>
+                    <button type="button" id="cancel" class="btn btn-lg btn-dark text-center ml-5"
+                            value="Save" style="display: none;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/js/mdb.min.js"></script>
+
+<script src="./scripts/update-profile.js"></script>
+</body>
+</html>

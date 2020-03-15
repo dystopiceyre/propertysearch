@@ -99,7 +99,7 @@ class PropertyDatabase
      */
     function loginCheck($username, $password)
     {
-        $sql = "SELECT users.user_first FROM users
+        $sql = "SELECT * FROM users
                 WHERE user_email = :username
                 AND user_password = :password";
 
@@ -111,6 +111,37 @@ class PropertyDatabase
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Edits a persons info based on information
+     * gathered from the profile edit page,
+     * inserts into db.
+     */
+    function editProfile()
+    {
+
+        // 1. Define the query
+        $sql = "UPDATE users SET users.user_first = :fname, users.user_last = :lname, users.user_email = :email,
+                            users.user_password = :password, users.user_phone = :phone, users.user_admin = :admin
+                WHERE users.user_email = :oldEmail";
+
+        // 2. Prepare the statement
+        $statement = $this->_db->prepare($sql);
+
+        // 3. Bind the parameters
+        $statement->bindParam(':fname', $_SESSION['person']->getFName());
+        $statement->bindParam(':lname', $_SESSION['person']->getLName());
+        $statement->bindParam(':email', $_SESSION['person']->getEmail());
+        $statement->bindParam(':oldEmail', $_SESSION['oldEmail']);
+        $statement->bindParam(':password', $_SESSION['person']->getPassword());
+        $statement->bindParam(':phone', $_SESSION['person']->getPhone());
+        $statement->bindParam(':admin', $_SESSION['person']->getAdmin());
+
+        // 4. Execute the statement
+        $statement->execute();
+
+        return $user = $this->_db->lastInsertId();
     }
 
     /**
@@ -139,7 +170,6 @@ class PropertyDatabase
         // 4. Execute the statement
         $statement->execute();
 
-        echo "New user added!<br>";
         return $user = $this->_db->lastInsertId();
     }
 
