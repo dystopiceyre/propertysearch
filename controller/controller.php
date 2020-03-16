@@ -20,7 +20,9 @@ class PropertyController
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['typeSelect'];
+            $zip = substr(trim($_POST['zip']), 0, 2);
             $_SESSION['type'] = $type;
+            $_SESSION['location'] = $zip;
             $this->_f3->reroute('/homes');
         }
 
@@ -229,25 +231,26 @@ class PropertyController
         //if redirected from landing page
         if (isset($_SESSION['type'])) {
             $type = $_SESSION['type'];
+            $location = $_SESSION['location'];
             if ($type == 'House') {
-                $houses = $GLOBALS['db']->getHouses();
+                $houses = $GLOBALS['db']->getHouses($location);
                 $this->_f3->set('properties', $houses);
             } else if ($type == 'Condo') {
-                $condos = $GLOBALS['db']->getCondos();
+                $condos = $GLOBALS['db']->getCondos($location);
                 $this->_f3->set('properties', $condos);
             } else if ($type == 'Apartment') {
-                $apartments = $GLOBALS['db']->getApartments();
+                $apartments = $GLOBALS['db']->getApartments($location);
                 $this->_f3->set('properties', $apartments);
             } else {
                 //show all types
-                $properties = $GLOBALS['db']->getProperties();
+                $properties = $GLOBALS['db']->getProperties($location);
                 $this->_f3->set('properties', $properties);
             }
             unset($_SESSION['type']);
         } else {
             //if using filters on page
             $type = $_GET['typeSelect'];
-            $zip = trim(substr($_GET['zip'], 0, 2));
+            $zip = substr(trim($_GET['zip']), 0, 2);
             $beds = explode("-", $_GET['beds']);
             $bedMin = trim($beds[0]);
             $bedMax = trim($beds[1]);

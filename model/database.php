@@ -10,9 +10,9 @@ class PropertyDatabase
      */
     function __construct()
     {
-        require('/home/joshicgr/config.php');
+        require('/home/oringhis/propertyConfig.php');
         try {
-            $this->_db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $this->_db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -20,48 +20,59 @@ class PropertyDatabase
 
     /**
      * Retrieves properties of all types from db
+     * @param $location
      * @return array
      */
-    function getProperties()
+    function getProperties($location)
     {
-        $sql = "SELECT * FROM property ORDER BY prop_id";
+        $sql = "SELECT * FROM property WHERE location LIKE CONCAT(:location, '___%') ORDER BY prop_id";
         $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':location', $location, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Retrieves properties of house type from db
+     * @param $location
      * @return array
      */
-    function getHouses()
+    function getHouses($location)
     {
-        $sql = "SELECT * FROM property INNER JOIN house ON property.prop_id = house.prop_id ORDER BY property.prop_id";
+        $sql = "SELECT * FROM property INNER JOIN house ON property.prop_id = house.prop_id 
+        WHERE location LIKE CONCAT(:location, '___%') ORDER BY property.prop_id";
         $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':location', $location, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Retrieves properties of condo type from db
+     * @param $location
      * @return array
      */
-    function getCondos()
+    function getCondos($location)
     {
-        $sql = "SELECT * FROM property INNER JOIN condo ON property.prop_id = condo.prop_id ORDER BY property.prop_id";
+        $sql = "SELECT * FROM property INNER JOIN condo ON property.prop_id = condo.prop_id 
+        WHERE location LIKE CONCAT(:location, '___%') ORDER BY property.prop_id";
         $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':location', $location, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Retrieves properties of apartment type from db
+     * @param $location
      * @return array
      */
-    function getApartments()
+    function getApartments($location)
     {
-        $sql = "SELECT * FROM property INNER JOIN apartment ON property.prop_id = apartment.prop_id ORDER BY property.prop_id";
+        $sql = "SELECT * FROM property INNER JOIN apartment ON property.prop_id = apartment.prop_id 
+        WHERE location LIKE CONCAT(:location, '___%') ORDER BY property.prop_id";
         $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':location', $location, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
