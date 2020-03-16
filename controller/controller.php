@@ -27,12 +27,17 @@ class PropertyController
         echo $view->render('views/landing-page.html');
     }
 
+    /**
+     * Displays the login page
+     * Checks to see if user is already logged, redirects to /home if true.
+     *
+     * SESSION VARIABLES ADDED IN VALIDATION
+     */
     public function loginPage()
     {
         $_SESSION['navDark'] = true;
-        echo $_SESSION['username'];
 
-        if ($_SESSION['username']) {
+        if (!(empty($_SESSION['fname']))) {
             $this->_f3->reroute('/homes');
         }
 
@@ -44,7 +49,33 @@ class PropertyController
             $this->_f3->set('username', $username);
             $this->_f3->set('password', $password);
 
-            if ($this->_validator->validLogin()) {
+            $sqlPerson = $GLOBALS['db']->loginCheck($this->_f3->get('username'), $this->_f3->get('password'));
+
+            if ($this->_validator->validLogin($sqlPerson)) {
+
+                // Write to variables
+                $fname = $sqlPerson['user_first'];
+                $lname = $sqlPerson['user_last'];
+                $email = $sqlPerson['user_email'];
+                $password = $sqlPerson['user_password'];
+                $phone = $sqlPerson['user_phone'];;
+                $admin = $sqlPerson['user_admin'];
+
+                // Write user info to SESSION variable
+                $_SESSION['fname'] = $fname;
+                $_SESSION['lname'] = $lname;
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                $_SESSION['phone'] = $phone;
+                $_SESSION['admin'] = $admin;
+
+                if ($_SESSION['admin'] == 1) {
+                    $person = new Agent($fname, $lname, $email, $password, $phone);
+                } else {
+                    $person = new User($fname, $lname, $email, $password, $phone);
+                }
+
+                $_SESSION['person'] = $person;
 
                 $this->_f3->reroute('/homes');
             }
@@ -64,6 +95,10 @@ class PropertyController
     {
         $_SESSION['navDark'] = true;
 
+        if (!(empty($_SESSION['fname']))) {
+            $this->_f3->reroute('/homes');
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $fname = $_POST['fname'];
@@ -82,7 +117,7 @@ class PropertyController
             $this->_f3->set('phone', $phone);
             $this->_f3->set('admin', $admin);
 
-            if ($this->_validator->validRegister()) {
+            if ($this->_validator->validProfile()) {
 
                 // Write data to Session
                 $_SESSION['fname'] = $fname;
@@ -101,13 +136,81 @@ class PropertyController
 
                 $_SESSION['person'] = $person;
                 $GLOBALS['db']->addPerson();
-
-                $this->_f3->reroute('/login');
             }
         }
 
         $view = new Template();
         echo $view->render('views/register.html');
+    }
+
+    public function profilePage()
+    {
+        $_SESSION['navDark'] = true;
+        $_SESSION['successProf'] = "";
+
+        if (empty($_SESSION['fname'])) {
+            $this->_f3->reroute('/login');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $fname = $_POST['newFName'];
+            $lname = $_POST['newLName'];
+            $email = $_POST['newEmail'];
+            if (empty($_POST['newPassword']) && empty($_POST['newPassRepeat'])) {
+                $password = $_SESSION['person']->getPassword();
+                $passRepeat = $password;
+            }
+            else {
+                $password = $_POST['newPassword'];
+                $passRepeat = $_POST['newPassRepeat'];
+            }
+            $phone = $_POST['newPhone'];
+            $admin = $_POST['admin'];
+
+            $this->_f3->set('fname', $fname);
+            $this->_f3->set('lname', $lname);
+            $this->_f3->set('email', $email);
+            $this->_f3->set('password', $password);
+            $this->_f3->set('passRepeat', $passRepeat);
+            $this->_f3->set('phone', $phone);
+            $this->_f3->set('admin', $admin);
+
+            if ($this->_validator->validProfile()) {
+
+                // Write data to Session
+                $_SESSION['successProf'] = "Profile updated successfully!";
+                $_SESSION['fname'] = $fname;
+                $_SESSION['lname'] = $lname;
+                $_SESSION['oldEmail'] = $_SESSION['email'];
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                $_SESSION['passRepeat'] = $passRepeat;
+                $_SESSION['phone'] = $phone;
+                $_SESSION['admin'] = $admin;
+
+                if ($admin == 1) {
+                    $person = new Agent($fname, $lname, $email, $password, $phone);
+                } else {
+                    $person = new User($fname, $lname, $email, $password, $phone);
+                }
+
+                $_SESSION['person'] = $person;
+
+                $GLOBALS['db']->editProfile();
+            }
+        }
+
+        $view = new Template();
+        echo $view->render('views/profile.html');
+    }
+
+    public function aboutUsPage()
+    {
+        $_SESSION['navDark'] = true;
+
+        $view = new Template();
+        echo $view->render('views/aboutus.html');
     }
 
     public
