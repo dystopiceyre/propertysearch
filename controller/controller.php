@@ -224,6 +224,8 @@ class PropertyController
     function properties()
     {
         $_SESSION['navDark'] = true;
+        $_SESSION['noResult'] = "";
+
         //if redirected from landing page
         if (isset($_SESSION['type'])) {
             $type = $_SESSION['type'];
