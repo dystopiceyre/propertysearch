@@ -73,9 +73,11 @@
 
         <div class="ml-auto text-center">
             <!--        TODO: make only viewable for admin-->
-            <a href="add" target="_blank">
-                <button class="btn btn-primary">Add a New Home!</button>
-            </a>
+            <check if="{{ @SESSION['admin'] }} == 1">
+                <a href="add" target="_blank">
+                    <button class="btn btn-primary">Add a New Home!</button>
+                </a>
+            </check>
         </div>
         <div class="row">
             <repeat group="{{ @properties }}" value="{{ @property }}">
