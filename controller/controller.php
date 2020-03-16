@@ -27,17 +27,12 @@ class PropertyController
         echo $view->render('views/landing-page.html');
     }
 
-    /**
-     * Displays the login page
-     * Checks to see if user is already logged, redirects to /home if true.
-     *
-     * SESSION VARIABLES ADDED IN VALIDATION
-     */
     public function loginPage()
     {
         $_SESSION['navDark'] = true;
+        echo $_SESSION['username'];
 
-        if (!(empty($_SESSION['fname']))) {
+        if ($_SESSION['username']) {
             $this->_f3->reroute('/homes');
         }
 
@@ -49,33 +44,7 @@ class PropertyController
             $this->_f3->set('username', $username);
             $this->_f3->set('password', $password);
 
-            $sqlPerson = $GLOBALS['db']->loginCheck($this->_f3->get('username'), $this->_f3->get('password'));
-
-            if ($this->_validator->validLogin($sqlPerson)) {
-
-                // Write to variables
-                $fname = $sqlPerson['user_first'];
-                $lname = $sqlPerson['user_last'];
-                $email = $sqlPerson['user_email'];
-                $password = $sqlPerson['user_password'];
-                $phone = $sqlPerson['user_phone'];;
-                $admin = $sqlPerson['user_admin'];
-
-                // Write user info to SESSION variable
-                $_SESSION['fname'] = $fname;
-                $_SESSION['lname'] = $lname;
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
-                $_SESSION['phone'] = $phone;
-                $_SESSION['admin'] = $admin;
-
-                if ($_SESSION['admin'] == 1) {
-                    $person = new Agent($fname, $lname, $email, $password, $phone);
-                } else {
-                    $person = new User($fname, $lname, $email, $password, $phone);
-                }
-
-                $_SESSION['person'] = $person;
+            if ($this->_validator->validLogin()) {
 
                 $this->_f3->reroute('/homes');
             }
@@ -95,10 +64,6 @@ class PropertyController
     {
         $_SESSION['navDark'] = true;
 
-        if (!(empty($_SESSION['fname']))) {
-            $this->_f3->reroute('/homes');
-        }
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $fname = $_POST['fname'];
@@ -117,7 +82,7 @@ class PropertyController
             $this->_f3->set('phone', $phone);
             $this->_f3->set('admin', $admin);
 
-            if ($this->_validator->validProfile()) {
+            if ($this->_validator->validRegister()) {
 
                 // Write data to Session
                 $_SESSION['fname'] = $fname;
@@ -136,81 +101,13 @@ class PropertyController
 
                 $_SESSION['person'] = $person;
                 $GLOBALS['db']->addPerson();
+
+                $this->_f3->reroute('/login');
             }
         }
 
         $view = new Template();
         echo $view->render('views/register.html');
-    }
-
-    public function profilePage()
-    {
-        $_SESSION['navDark'] = true;
-        $_SESSION['successProf'] = "";
-
-        if (empty($_SESSION['fname'])) {
-            $this->_f3->reroute('/login');
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            $fname = $_POST['newFName'];
-            $lname = $_POST['newLName'];
-            $email = $_POST['newEmail'];
-            if (empty($_POST['newPassword']) && empty($_POST['newPassRepeat'])) {
-                $password = $_SESSION['person']->getPassword();
-                $passRepeat = $password;
-            }
-            else {
-                $password = $_POST['newPassword'];
-                $passRepeat = $_POST['newPassRepeat'];
-            }
-            $phone = $_POST['newPhone'];
-            $admin = $_POST['admin'];
-
-            $this->_f3->set('fname', $fname);
-            $this->_f3->set('lname', $lname);
-            $this->_f3->set('email', $email);
-            $this->_f3->set('password', $password);
-            $this->_f3->set('passRepeat', $passRepeat);
-            $this->_f3->set('phone', $phone);
-            $this->_f3->set('admin', $admin);
-
-            if ($this->_validator->validProfile()) {
-
-                // Write data to Session
-                $_SESSION['successProf'] = "Profile updated successfully!";
-                $_SESSION['fname'] = $fname;
-                $_SESSION['lname'] = $lname;
-                $_SESSION['oldEmail'] = $_SESSION['email'];
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
-                $_SESSION['passRepeat'] = $passRepeat;
-                $_SESSION['phone'] = $phone;
-                $_SESSION['admin'] = $admin;
-
-                if ($admin == 1) {
-                    $person = new Agent($fname, $lname, $email, $password, $phone);
-                } else {
-                    $person = new User($fname, $lname, $email, $password, $phone);
-                }
-
-                $_SESSION['person'] = $person;
-
-                $GLOBALS['db']->editProfile();
-            }
-        }
-
-        $view = new Template();
-        echo $view->render('views/profile.html');
-    }
-
-    public function aboutUsPage()
-    {
-        $_SESSION['navDark'] = true;
-
-        $view = new Template();
-        echo $view->render('views/aboutus.html');
     }
 
     public
@@ -224,23 +121,39 @@ class PropertyController
     function properties()
     {
         $_SESSION['navDark'] = true;
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //if redirected from landing page
+        if (isset($_SESSION['type'])) {
             $type = $_SESSION['type'];
+            if ($type == 'House') {
+                $houses = $GLOBALS['db']->getHouses();
+                $this->_f3->set('properties', $houses);
+            } else if ($type == 'Condo') {
+                $condos = $GLOBALS['db']->getCondos();
+                $this->_f3->set('properties', $condos);
+            } else if ($type == 'Apartment') {
+                $apartments = $GLOBALS['db']->getApartments();
+                $this->_f3->set('properties', $apartments);
+            } else {
+                //show all types
+                $properties = $GLOBALS['db']->getProperties();
+                $this->_f3->set('properties', $properties);
+            }
+            unset($_SESSION['type']);
         } else {
+            //if using filters on page
             $type = $_GET['typeSelect'];
-        }
-        if ($type == 'House') {
-            $houses = $GLOBALS['db']->getHouses();
-            $this->_f3->set('properties', $houses);
-        } else if ($type == 'Condo') {
-            $condos = $GLOBALS['db']->getCondos();
-            $this->_f3->set('properties', $condos);
-        } else if ($type == 'Apartment') {
-            $apartments = $GLOBALS['db']->getApartments();
-            $this->_f3->set('properties', $apartments);
-        } else {
-            //show all types
-            $properties = $GLOBALS['db']->getProperties();
+            $zip = trim(substr($_GET['zip'], 0, 2));
+            $beds = explode("-", $_GET['beds']);
+            $bedMin = trim($beds[0]);
+            $bedMax = trim($beds[1]);
+            $baths = explode("-", $_GET['baths']);
+            $bathMin = trim($baths[0]);
+            $bathMax = trim($baths[1]);
+            $noSign = str_replace("$", "", $_GET['price']);
+            $price = explode("-", $noSign);
+            $priceMin = trim($price[0]);
+            $priceMax = trim($price[1]);
+            $properties = $GLOBALS['db']->filter($type, $zip, $bedMin, $bedMax, $bathMin, $bathMax, $priceMin, $priceMax);
             $this->_f3->set('properties', $properties);
         }
         $template = new Template();
@@ -251,11 +164,6 @@ class PropertyController
     function add()
     {
         $_SESSION['navDark'] = true;
-
-        if (empty($_SESSION['fname'])) {
-            $this->_f3->reroute('/homes');
-        }
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];
             if (!$this->_validator->validType($type, $this->_f3)) {
@@ -267,11 +175,11 @@ class PropertyController
             }
             $bathCount = $_POST['bathCount'];
             if (!$this->_validator->validBath($bathCount)) {
-                $this->_f3->set("errors['bathCount']", "Enter only whole and half numbers for the bath count.");
+                $this->_f3->set("errors['bathCount']", "Enter only whole and half numbers 10 or less for the bath count.");
             }
             $bedCount = $_POST['bedCount'];
             if (!$this->_validator->validBed($bedCount)) {
-                $this->_f3->set("errors['bedCount']", "Enter only whole for the bedroom count.");
+                $this->_f3->set("errors['bedCount']", "Enter only whole numbers between 1 and 10 for the bedroom count.");
             }
             $price = $_POST['price'];
             if (!$this->_validator->validPrice($price)) {
@@ -294,7 +202,6 @@ class PropertyController
 
             //Write property to the database and grab last insert ID
             $id = $GLOBALS['db']->addProperty($property, $price, $type);
-
             if ($type == 'house') {
                 if ($_POST['rentbuy'] == 'rent') {
                     $rent = true;
@@ -308,11 +215,11 @@ class PropertyController
                 if (!$this->_validator->validFloor($floorLevel)) {
                     $this->_f3->set("errors['floor']", "Enter a number one or greater.");
                 }
-                if ($type == 'apartment') {
+                if ($type == 'Apartment') {
                     $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
                     $GLOBALS['db']->addApartment($apartment, $id);
                 }
-                if ($type == 'condo') {
+                if ($type == 'Condo') {
                     $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
                     $GLOBALS['db']->addCondo($condo, $id);
                 }
@@ -325,4 +232,5 @@ class PropertyController
         $template = new Template();
         echo $template->render('views/new-property.html');
     }
+
 }
