@@ -42,17 +42,21 @@
                                     <div class="text-center">
                                         <h3 class="card-title">{{ @property['type']}} #{{ @property['prop_id'] }}</h3>
                                     </div>
-                                    <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1" role="dialog">
+                                    <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1"
+                                         role="dialog">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Home Info</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul>
+                                                        <li>Price: ${{ @property['price']}}</li>
+                                                        <li>Location: {{ @property['location']}}</li>
                                                         <check if="{{ @property['type'] }} == house">
                                                             <li>Rent or purchase: {{ @property['rent'] }}</li>
                                                         </check>
@@ -66,7 +70,8 @@
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close
                                                     </button>
                                                 </div>
                                             </div>
@@ -84,7 +89,7 @@
                     <p class="h3 font-weight-normal text-center mb-3">Filters</p>
                     <div class="form-group">
                         <select class="form-control-lg input-group opacity rounded-0" id="typeSelect" name="typeSelect">
-                            <option value="" selected disabled>Select type</option>
+                            <option value="">Select type</option>
                             <repeat group="{{ @types }}" value="{{ @type }}">
                                 <option name="types" value="{{ @type }}" id="{{ @type }}">{{ @type }}
                             </repeat>
@@ -92,7 +97,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP">
+                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP" name="zip" id="zip">
                     </div>
 
                     <div class="form-group">
@@ -102,7 +107,7 @@
                     <div class="form-group">
                         <p>
                             <label for="price">Price range:</label><br>
-                            <input type="text" id="price" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="price" name="price" class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="price-range"></div>
                     </div>
@@ -110,7 +115,7 @@
                     <div class="form-group">
                         <p>
                             <label for="beds">Bedrooms:</label><br>
-                            <input type="text" id="beds" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="beds" name="beds" class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="bed-range"></div>
                     </div>
@@ -118,7 +123,7 @@
                     <div class="form-group">
                         <p>
                             <label for="baths">Bathrooms:</label><br>
-                            <input type="text" id="baths" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="baths" name="baths" class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="bath-range"></div>
                     </div>
