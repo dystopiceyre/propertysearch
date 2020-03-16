@@ -10,9 +10,9 @@ class PropertyDatabase
      */
     function __construct()
     {
-        require('/home/oringhis/propertyConfig.php');
+        require('/home/joshicgr/config.php');
         try {
-            $this->_db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
+            $this->_db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
