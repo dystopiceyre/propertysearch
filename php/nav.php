@@ -9,8 +9,10 @@ if ($_SESSION['navDark']) {
     $text = "dark";
 }
 
+$logoAdj = "";
 $loggedin = '<a class="nav-link h5 font-weight-normal text-' . $text . '" href="login">Login</a>';
 if ($_SESSION['fname']) {
+    $logoAdj = "ml-5";
     $loggedin = '
       <!-- Dropdown -->
       <li class="nav-item dropdown">
@@ -37,13 +39,13 @@ echo '
     <ul class="navbar-nav mr-auto order-1">
         <li class="nav-item">
           <a class="navbar-brand" href="/328/propertysearch">
-            <img src="./images/Logo4.png" width="60" height="60" class="d-inline-block align-top" alt="logo">
+            <img src="./images/Logo4.png" width="60" height="60" class="d-inline-block align-top ' . $logoAdj . '" alt="logo">
           </a>
         </li>
       </ul>
       <ul class="navbar-nav mr-auto order-0">
         <li class="nav-item">
-          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="#">About us</a>
+          <a class="nav-link h5 font-weight-normal text-' . $text . '" href="aboutus">About us</a>
         </li>
       </ul>
       <ul class="navbar-nav nav-flex-icons order-2">

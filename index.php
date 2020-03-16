@@ -52,6 +52,11 @@ $f3->route('GET|POST /profile', function () {
     $controller->profilePage();
 });
 
+$f3->route('GET|POST /aboutus', function () {
+    global $controller;
+    $controller->aboutUsPage();
+});
+
 $f3->route('GET|POST /welcome', function () {
     global $controller;
     $controller->showWelcome();

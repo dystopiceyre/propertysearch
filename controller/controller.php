@@ -205,6 +205,14 @@ class PropertyController
         echo $view->render('views/profile.html');
     }
 
+    public function aboutUsPage()
+    {
+        $_SESSION['navDark'] = true;
+
+        $view = new Template();
+        echo $view->render('views/aboutus.html');
+    }
+
     public
     function showWelcome()
     {
