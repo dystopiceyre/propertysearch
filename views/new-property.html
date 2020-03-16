@@ -2,90 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Add New Property</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./styles/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.13.0/css/mdb.min.css" rel="stylesheet">
+
+    <title>New Property</title>
 </head>
-<body>
+<body class="bg-light">
 <include href="./php/nav.php"/>
-<div class="container">
-    <h3>Add a New Property</h3>
+
+<div class="container mt-5">
     <form id="property-form" action="#" method="post">
         <div class="form-group form-check" id="type">
-            <label for="type">Type of Property</label><br>
-            <label for="house"><input type="radio" id="house" name="type" value="house" required="required">
-                House</label>
-            <label for="condo"><input type="radio" id="condo" name="type" value="condo">
-                Condo</label>
-            <label for="apartment"><input type="radio" id="apartment" name="type" value="apartment">
-                Apartment</label>
-            <span id="typeErr" class="err">{{ @errors['type'] }}</span>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group form-check hidden" id="rentDiv">
-                    <label for="rentDiv">Is this house for rent or purchase?</label><br>
-                    <label for="rent"><input type="radio" id="rent" name="rentbuy" value="rent">Rental</label>
-                    <label for="buy"><input type="radio" id="buy" name="rentbuy" value="buy">Purchase</label>
-                </div>
-                <div class="form-group hidden" id="floorDiv">
-                    <label for="floor">Floor Level</label>
-                    <input type="number" class="form-control" min="1"
-                           id="floor" name="floor">
-                    <span class="err">{{ @errors['floor'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="sqFoot">Square Footage</label>
-                    <input type="number" class="form-control" required="required"
-                           id="sqFoot" name="sqFoot" min="250" max="100000" value="{{ @property['sqFoot'] }}">
-                    <span class="err">{{ @errors['sqFoot'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="bathCount">Number of Bathrooms</label>
-                    <input type="number" class="form-control" min="1" max="10" step="0.5" required="required"
-                           id="bathCount" name="bathCount" value="{{ @property['bathCount'] }}">
-                    <span class="err">{{ @errors['bathCount'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="bedCount">Number of Bedrooms</label>
-                    <input type="number" class="form-control" min="1" max="10" required="required"
-                           id="bedCount" name="bedCount" value="{{ @property['bedCount'] }}">
-                    <span class="err">{{ @errors['bedCount'] }}</span>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" min="500" max="50000000"
-                           required="required" id="price" name="price">
-                    <span class="err">{{ @errors['price'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="yearBuilt">Year Built</label>
-                    <input type="number" class="form-control"
-                           min="1600" max="2020" id="yearBuilt" name="yearBuilt">
-                    <span class="err">{{ @errors['yearBuilt'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="location">Zip Code</label>
-                    <input type="text" class="form-control" required="required"
-                           id="location" name="location">
-                    <span class="err">{{ @errors['location'] }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label><br>
-                    <textarea id="description" name="description" cols="60" rows="5"></textarea>
-                    <span class="err">{{ @errors['description'] }}</span>
-                </div>
-            </div>
-        </div>
+            <div class="row pt-3">
+                <div class="card card-cascade col-sm-12 col-lg-8 offset-sm-0 offset-lg-2 px-0 mb-5">
+                    <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Add new property</div>
+                    <div class="card-body card-body-cascade text-center mt-3">
+                        <div class="row my-4">
+                            <div class="col-sm-6 offset-sm-3 mb-4">
+                                <check if="{{ @errors['type'] }}">
+                                    <span id="typeErr" class="offset-sm-2 text-danger">{{ @errors['type'] }}</span>
+                                </check>
+                                <label for="type">Type of Property</label><br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="house" name="type" value="house">
+                                    <label class="custom-control-label" for="house">House</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="condo" name="type" value="condo">
+                                    <label class="custom-control-label" for="condo">Condo</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="apartment" name="type" value="apartment">
+                                    <label class="custom-control-label" for="apartment">Apartment</label>
+                                </div>
+                            </div>
 
-        <div class="text-center">
-            <button id="submit" type="submit" class="btn btn-primary">
-                Add Property
-            </button>
-        </div>
+                            <div class="col-sm-6 offset-sm-3 mb-4 hidden" id="rentDiv">
+                                <div class="form-group form-check">
+                                    <label for="rentDiv">Is this house for rent or purchase?</label><br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" id="rent" name="rentbuy" value="rent">
+                                        <label class="custom-control-label" for="rent">Rental</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" id="buy" name="rentbuy" value="buy">
+                                        <label class="custom-control-label" for="buy">Purchase</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8 offset-sm-2 hidden" id="floorDiv">
+                                <check if="{{ @errors['floor'] }}">
+                                    <span class="offset-sm-2 text-danger">{{ @errors['floor'] }}</span>
+                                </check>
+                                <input type="number" id="floor" name="floor" class="form-control
+                                                                          form-control-lg input-group mb-4"
+                                       placeholder="Floor level" min="1">
+                            </div>
+
+                            <check if="{{ @errors['sqFoot'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['sqFoot'] }}</span>
+                            </check>
+                            <input type="number" id="sqFoot" name="sqFoot" class="col-sm-8 offset-sm-2 form-control
+                                                                          form-control-lg input-group mb-4"
+                                   placeholder="Square Ft." required="required" min="250" max="100000"
+                                   value="{{ @property['sqFoot'] }}">
+
+                            <check if="{{ @errors['bathCount'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['bathCount'] }}</span>
+                            </check>
+                            <input type="number" id="bathCount" name="bathCount" class="col-sm-8 offset-sm-2 form-control
+                                                                          form-control-lg input-group mb-4"
+                                   placeholder="# of bathrooms" min="1" max="10" step="0.5" required="required"
+                                   value="{{ @property['bathCount'] }}">
+
+                            <check if="{{ @errors['bedCount'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['bedCount'] }}</span>
+                            </check>
+                            <input type="number" id="bedCount" name="bedCount" class="col-sm-8 offset-sm-2 form-control
+                                                                           form-control-lg input-group mb-4"
+                                   placeholder="# of bedrooms" min="1" max="10" required="required"
+                                   value="{{ @property['bedCount'] }}">
+
+                            <check if="{{ @errors['price'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['price'] }}</span>
+                            </check>
+                            <input type="number" id="price" name="price" class="col-sm-8 offset-sm-2 form-control
+                                                                                    form-control-lg input-group mb-4"
+                                   placeholder="$ Price" min="500" max="50000000" required="required">
+
+                            <check if="{{ @errors['yearBuilt'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['yearBuilt'] }}</span>
+                            </check>
+                            <input type="number" id="yearBuilt" name="yearBuilt" class="col-sm-8 offset-sm-2
+                                                                                        form-control form-control-lg
+                                                                                        input-group mb-4"
+                                   placeholder="Year built" min="1600" max="2020">
+
+                            <check if="{{ @errors['location'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['location'] }}</span>
+                            </check>
+                            <input type="text" id="location" name="location" class="col-sm-8 offset-sm-2 form-control
+                                                                         form-control-lg input-group mb-4"
+                                   placeholder="Zip Code">
+
+                            <check if="{{ @errors['description'] }}">
+                                <span class="offset-sm-2 text-danger">{{ @errors['description'] }}</span>
+                            </check>
+                            <textarea id="description" name="description" class="col-sm-8 offset-sm-2 form-control
+                                                                         form-control-lg input-group"
+                                      placeholder="Brief description" cols="60" rows="5"></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button id="submit" type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Register">Add Listing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </form>
 </div>
 

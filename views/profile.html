@@ -20,7 +20,7 @@
 <form method="post" action="#">
     <div class="container mt-5">
         <div class="row pt-3">
-            <div class="card card-cascade col-sm-8 offset-sm-2 px-0 mb-5">
+            <div class="card card-cascade col-sm-12 col-lg-8 offset-sm-0 offset-lg-2 px-0 mb-5">
                 <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">My Profile</div>
                 <div class="card-body card-body-cascade">
 
@@ -56,42 +56,42 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6 offset-3 mb-4">
-                            <p class="h4 pb-2"><u>Email</u></p>
-                            <p id="emailDisplay" class="h5 font-weight-normal">{{ @SESSION['email'] }}</p>
-                            <input id="emailEditDisplay" class="form-control form-control-lg" type="email"
+                        <div class="col-sm-6 offset-3 mb-4 text-left">
+                            <p class="h5 font-weight-normal pb-2">Email<br>
+                                <span id="emailDisplay" class="h4">{{ @SESSION['email'] }}</span></p>
+                            <input id="emailEditDisplay" class="form-control form-control" type="email"
                                    id="newEmail" name="newEmail" value="{{ @SESSION['email'] }}"
                                    style="display: none;">
                         </div>
-                        <div class="col-sm-6 offset-3 mb-4">
-                            <p class="h4 pb-2"><u>Password</u></p>
-                            <p id="passDisplay" class="h5 font-weight-normal">Secure</p>
+                        <div class="col-sm-6 offset-3 mb-4 text-left">
+                            <p class="h5 font-weight-normal pb-2">Password<br>
+                                <span id="passDisplay" class="h4">Secure</span></p>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input id="newPassword" class="form-control form-control-lg" type="password"
-                                           name="newPassword" placeholder="New pass"
+                                    <input id="newPassword" class="form-control form-control" type="password"
+                                           name="newPassword" placeholder="New password"
                                            style="display: none;">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input id="newPassRepeat" class="form-control form-control-lg" type="password"
-                                           name="newPassRepeat" placeholder="Repeat pass"
+                                    <input id="newPassRepeat" class="form-control form-control" type="password"
+                                           name="newPassRepeat" placeholder="Repeat password"
                                            style="display: none;">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 offset-3 mb-4">
-                            <p class="h4 pb-2"><u>Phone</u></p>
-                            <input id="phoneEditDisplay" class="form-control form-control-lg" type="tel"
+                        <div class="col-sm-6 offset-3 mb-4 text-left">
+                            <p class="h5 font-weight-normal pb-2">Phone<br>
+                                <span id="phoneDisplay" class="h4">{{ @SESSION['phone'] }}</span></p>
+                            <input id="phoneEditDisplay" class="form-control form-control" type="tel"
                                    id="newPhone" name="newPhone" value="{{ @SESSION['phone'] }}"
                                    style="display: none;">
-                            <span id="phoneDisplay" class="h5 font-weight-normal">{{ @SESSION['phone'] }}</span>
                         </div>
 
 
 
-                        <div class="col-sm-6 offset-3">
-                            <p class="h4" style><u>Status</u></p>
-                            <p id="statusDisplay" class="h5 font-weight-normal">
+                        <div class="col-sm-6 offset-3 mb-4 text-left">
+                            <p class="h5 font-weight-normal" style>Status<br>
+                            <span id="statusDisplay" class="h4">
                                 <check if="{{ @SESSION['admin'] }}">
                                     <true>
                                         Agent
@@ -100,7 +100,7 @@
                                         Buyer
                                     </false>
                                 </check>
-                            </p>
+                            </span>
 
                             <div id="statusRadioDisplay" style="display: none;">
                                 <check if="{{ @SESSION['admin'] }}">
