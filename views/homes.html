@@ -40,39 +40,62 @@
                                 <img src="./images/{{ @property['image']}}" class="card-img-top" alt="photo of the property">
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <h3 class="card-title">{{ @property['type']}} #{{ @property['prop_id'] }}</h3>
+                                        <div class="row">
+                                            <!--{{ @property['type']}} #{{ @property['prop_id'] }}-->
+                                            <div class="col-3">
+                                                <!--Info icon-->
+                                                <!--<i class="fas fa-info-circle fa-2x"></i>-->
+                                            </div>
+
+                                            <div class="col-6">
+                                                <p class="card-title h2">${{ @property['price']}}<br>
+                                                    <span class="h5 font-weight-light">{{ @property['type'] }}</span></p>
+                                            </div>
+
+                                            <div class="col-3">
+                                                <!--Heart icon-->
+                                                <i class="far fa-heart fa-2x"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1"
                                          role="dialog">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Home Info</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
                                                 <div class="modal-body">
-                                                    <ul>
-                                                        <li>Price: ${{ @property['price']}}</li>
-                                                        <li>Location: {{ @property['location']}}</li>
-                                                        <check if="{{ @property['type'] }} == house">
-                                                            <li>Rent or purchase: {{ @property['rent'] }}</li>
-                                                        </check>
-                                                        <check if="{{ @property['type'] }} != house">
-                                                            <li>Floor #: {{ @property['floor_level'] }}</li>
-                                                        </check>
-                                                        <li>Square Footage: {{ @property['sq_foot'] }}</li>
-                                                        <li># of Bedrooms: {{ @property['bed_count'] }}</li>
-                                                        <li># of Bathrooms {{ @property['bath_count'] }}</li>
-                                                        <li>Description: {{ @property['description'] }}</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close
-                                                    </button>
+                                                        <img src="./images/placeholder-image.jpg" class="img-fluid" alt="dummyImage">
+                                                    <div class="row mt-3 mb-4">
+                                                        <div class="col-3">
+                                                            <!--Envelope icon-->
+                                                            <i class="far fa-envelope fa-2x ml-2"></i>
+                                                        </div>
+                                                        <div class="col-6 text-center">
+                                                            <p class="h1"><u>${{ @property['price']}}</u></p>
+                                                        </div>
+                                                        <div class="col-3 text-right">
+                                                            <!--Heart icon-->
+                                                            <i class="far fa-heart fa-2x mr-2"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <p class="h4 font-weight-normal mb-3">Location:
+                                                        <span class="font-weight-light">{{ @property['location'] }}</span></p>
+                                                    <check if="{{ @property['type'] }} == house">
+                                                        <p class="h4 font-weight-normal mb-3">Rent or purchase:
+                                                            <span class="font-weight-light">{{ @property['rent'] }}</span></p>
+                                                    </check>
+                                                    <check if="{{ @property['type'] }} != house">
+                                                        <p class="h4 font-weight-normal mb-3">Floor #:
+                                                            <span class="font-weight-light">{{ @property['floor_level'] }}</span></p>
+                                                    </check>
+                                                    <p class="h4 font-weight-normal mb-3">Square Footage:
+                                                        <span class="font-weight-light">{{ @property['sq_foot'] }}</span></p>
+                                                    <p class="h4 font-weight-normal mb-3"># of Bedrooms:
+                                                        <span class="font-weight-light">{{ @property['bed_count'] }}</span></p>
+                                                    <p class="h4 font-weight-normal mb-3"># of Bathrooms:
+                                                        <span class="font-weight-light">{{ @property['bath_count'] }}</span></p>
+                                                    <p class="h4 font-weight-normal mb-3">Description:
+                                                        <span class="font-weight-light">{{ @property['description'] }}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,6 +109,10 @@
 
             <div class="col-lg-3 bg-white shadow rounded p-4 h-25">
                 <form method="get" action="#">
+                    <check if="{{ @SESSION['noResult'] }}">
+                        <p class='text-center table-danger rounded-0 mb-4 py-2'>{{ @SESSION['noResult'] }}</p>
+                    </check>
+
                     <p class="h3 font-weight-normal text-center mb-3">Filters</p>
                     <div class="form-group">
                         <select class="form-control-lg input-group opacity rounded-0" id="typeSelect" name="typeSelect">

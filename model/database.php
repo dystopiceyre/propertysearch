@@ -118,7 +118,7 @@ class PropertyDatabase
         $statement->bindParam(':priceMax', $priceMax, PDO::PARAM_INT);
         $statement->execute();
         if ($statement->rowCount() == 0) {
-            echo "<h1>No results within those parameters</h1>";
+            $_SESSION['noResult'] = "No results";
         }
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
