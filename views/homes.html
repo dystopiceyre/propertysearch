@@ -20,113 +20,114 @@
 <include href="./php/nav.php"/>
 
 <div class="mx-5">
-    <div class="mx-5 mt-5">
-        <p class="h3 font-weight-normal">Filters</p>
-        <form method="get" action="#">
-            <div class="row mb-5">
-                <div class="col-md-2 form-group">
-                    <select class="form-control-lg input-group opacity rounded-0" id="typeSelect" name="typeSelect">
-                        <option value="">Select type</option>
-                        <repeat group="{{ @types }}" value="{{ @type }}">
-                            <option name="types" value="{{ @type }}" id="{{ @type }}">{{ @type }}
-                        </repeat>
-                    </select>
-                </div>
+    <div class="mt-5">
 
-                <div class="col-md-2 form-group">
-                    <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP">
-                </div>
-
-                <div class="col-md-2 form-group">
-                    <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="Radius">
-                </div>
-
-                <div class="col-md-2 form-group">
-                    <p>
-                        <label for="price">Price range:</label>
-                        <input type="text" id="price" name="price">
-                    </p>
-                    <div id="price-range"></div>
-                </div>
-
-                <div class="col-md-2 form-group">
-                    <p>
-                        <label for="beds">Bedrooms:</label>
-                        <input type="text" id="beds" name="beds">
-                    </p>
-                    <div id="bed-range"></div>
-                </div>
-
-                <div class="col-md-2 form-group">
-                    <p>
-                        <label for="baths">Bathrooms:</label>
-                        <input type="text" id="baths" name="baths">
-                    </p>
-                    <div id="bath-range"></div>
-                </div>
-
-                <div class="col-md-2 form-group">
-                    <button class="btn btn-dark">Search</button>
-                </div>
-            </div>
-        </form>
-
-        <div class="ml-auto text-center">
-            <!--        TODO: make only viewable for admin-->
-            <a href="add" target="_blank">
-                <button class="btn btn-primary">Add a New Home!</button>
-            </a>
+        <div class="ml-auto mt-5 mb-3">
+            <check if="{{ @SESSION['admin'] }} == 1">
+                <a href="add" target="_blank">
+                    <button class="btn btn-primary">Add a New Home!</button>
+                </a>
+            </check>
         </div>
-        <div class="row">
-            <repeat group="{{ @properties }}" value="{{ @property }}">
-                <div class="col-sm-3">
-                    <a class="card mb-5" data-toggle="modal"
-                       data-target="#modal{{ @property['prop_id'] }}">
-                        <img src="./images/placeholder-image.jpg" class="card-img-top" alt="dummyImage">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <h3 class="card-title">{{ @property['type']}} #{{ @property['prop_id'] }}</h3>
-                            </div>
-                            <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Home Info</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul>
-                                                <li>Price: ${{ @property['price']}}</li>
-                                                <check if="{{ @property['type'] }} == house">
-                                                    <li>Rent or purchase:
-                                                        <check if="{{ @property['rent'] }} == 1">
-                                                            <true>Rent</true>
-                                                            <false>Purchase</false>
+
+        <div class="row mb-5">
+            <div class="col-lg-8 mr-5">
+                <div class="row">
+                    <repeat group="{{ @properties }}" value="{{ @property }}">
+                        <div class="col-sm-9 col-md-4 col-lg-4">
+                            <a class="card mb-5" data-toggle="modal"
+                               data-target="#modal{{ @property['prop_id'] }}">
+                                <img src="./images/placeholder-image.jpg" class="card-img-top" alt="dummyImage">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h3 class="card-title">{{ @property['type']}} #{{ @property['prop_id'] }}</h3>
+                                    </div>
+                                    <div class="modal fade" id="modal{{ @property['prop_id'] }}" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Home Info</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul>
+                                                        <check if="{{ @property['type'] }} == house">
+                                                            <li>Rent or purchase: {{ @property['rent'] }}</li>
                                                         </check>
-                                                    </li>
-                                                </check>
-                                                <check if="{{ @property['type'] }} != house">
-                                                    <li>Floor #: {{ @property['floor_level'] }}</li>
-                                                </check>
-                                                <li>Square Footage: {{ @property['sq_foot'] }}</li>
-                                                <li># of Bedrooms: {{ @property['bed_count'] }}</li>
-                                                <li># of Bathrooms {{ @property['bath_count'] }}</li>
-                                                <li>Description: {{ @property['description'] }}</li>
-                                            </ul>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                            </button>
+                                                        <check if="{{ @property['type'] }} != house">
+                                                            <li>Floor #: {{ @property['floor_level'] }}</li>
+                                                        </check>
+                                                        <li>Square Footage: {{ @property['sq_foot'] }}</li>
+                                                        <li># of Bedrooms: {{ @property['bed_count'] }}</li>
+                                                        <li># of Bathrooms {{ @property['bath_count'] }}</li>
+                                                        <li>Description: {{ @property['description'] }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </a>
+                    </repeat>
                 </div>
-            </repeat>
+            </div>
+
+            <div class="col-lg-3 bg-white shadow rounded p-4 h-25">
+                <form method="get" action="#">
+                    <p class="h3 font-weight-normal text-center mb-3">Filters</p>
+                    <div class="form-group">
+                        <select class="form-control-lg input-group opacity rounded-0" id="typeSelect" name="typeSelect">
+                            <option value="" selected disabled>Select type</option>
+                            <repeat group="{{ @types }}" value="{{ @type }}">
+                                <option name="types" value="{{ @type }}" id="{{ @type }}">{{ @type }}
+                            </repeat>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="Radius">
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <label for="price">Price range:</label><br>
+                            <input type="text" id="price" class="form-control-lg input-group opacity rounded-0">
+                        </p>
+                        <div id="price-range"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <label for="beds">Bedrooms:</label><br>
+                            <input type="text" id="beds" class="form-control-lg input-group opacity rounded-0">
+                        </p>
+                        <div id="bed-range"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <label for="baths">Bathrooms:</label><br>
+                            <input type="text" id="baths" class="form-control-lg input-group opacity rounded-0">
+                        </p>
+                        <div id="bath-range"></div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

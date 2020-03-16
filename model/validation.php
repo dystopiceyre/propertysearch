@@ -14,26 +14,22 @@ class PropertyValidator
         $this->_f3 = $_f3;
     }
 
-    public function validLogin()
+    public function validLogin($sqlPerson)
     {
         $isValid = true;
 
-        $name = $GLOBALS['db']->loginCheck($this->_f3->get('username'), $this->_f3->get('password'));
-
-        if (empty($name)) {
+        if (empty($sqlPerson)) {
             $isValid = false;
             $this->_f3->set("errors['login']", "Invalid login");
         }
 
-        // Write name value to SESSION variable
-        $_SESSION['username'] = $name["user_first"];
         return $isValid;
     }
 
     /**
      * @return bool
      */
-    function validRegister()
+    function validProfile()
     {
         $isValid = true;
 
@@ -69,6 +65,10 @@ class PropertyValidator
         if (!$this->validPhone($this->_f3->get('phone'))) {
             $isValid = false;
             $this->_f3->set("errors['phone']", "Please enter a 10 digit number");
+        }
+
+        if (!$isValid) {
+            $this->_f3->set("errors['invalidProf']", "One or more fields not properly set!");
         }
 
         return $isValid;

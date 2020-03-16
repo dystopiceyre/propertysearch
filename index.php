@@ -47,6 +47,16 @@ $f3->route('GET|POST /register', function () {
     $controller->registerPage();
 });
 
+$f3->route('GET|POST /profile', function () {
+    global $controller;
+    $controller->profilePage();
+});
+
+$f3->route('GET|POST /aboutus', function () {
+    global $controller;
+    $controller->aboutUsPage();
+});
+
 $f3->route('GET|POST /welcome', function () {
     global $controller;
     $controller->showWelcome();
