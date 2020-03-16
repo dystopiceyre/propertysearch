@@ -117,7 +117,6 @@ class PropertyDatabase
         $statement->bindParam(':priceMin', $priceMin, PDO::PARAM_INT);
         $statement->bindParam(':priceMax', $priceMax, PDO::PARAM_INT);
         $statement->execute();
-        echo "<br>";
         if ($statement->rowCount() == 0) {
             echo "<h1>No results within those parameters</h1>";
         }
@@ -255,26 +254,40 @@ class PropertyDatabase
     }
 
     /** Adds apartment info to a previously created property
+     * @param $apartment
      * @param $id
      */
-    function addApartment($id)
+    function addApartment($apartment, $id)
     {
-        $sql = "INSERT INTO apartment(prop_id) VALUE (:prop_id)";
+        $sql = "INSERT INTO apartment(prop_id, floor_level) VALUE (:prop_id, :floor)";
         $statement = $this->_db->prepare($sql);
         $statement->bindParam(':prop_id', $id);
+        $statement->bindParam(':floor', $apartment->getFloorLevel());
         $statement->execute();
         echo "New apartment added!<br>";
     }
 
     /** Adds condo info to a previously created property
+     * @param $condo
      * @param $id
      */
-    function addCondo($id)
+    function addCondo($condo, $id)
     {
-        $sql = "INSERT INTO condo(prop_id) VALUE (:prop_id)";
+        $sql = "INSERT INTO condo(prop_id, floor_level) VALUE (:prop_id, :floor)";
         $statement = $this->_db->prepare($sql);
         $statement->bindParam(':prop_id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':floor', $condo->getFloorLevel());
         $statement->execute();
         echo "New condo added!<br>";
+    }
+
+    function addImage($image, $id)
+    {
+        $sql = "UPDATE property SET image = :image WHERE prop_id = :prop_id";
+        $statement = $this->_db->prepare($sql);
+        $statement->bindParam(':image', $image['name'], PDO::PARAM_STR);
+        $statement->bindParam(':prop_id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        echo "Image uploaded!<br>";
     }
 }

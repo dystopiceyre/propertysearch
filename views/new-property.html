@@ -20,11 +20,13 @@
 <include href="./php/nav.php"/>
 
 <div class="container mt-5">
-    <form id="property-form" action="#" method="post">
+    <form id="property-form" action="#" method="post" enctype="multipart/form-data">
         <div class="form-group form-check" id="type">
             <div class="row pt-3">
                 <div class="card card-cascade col-sm-12 col-lg-8 offset-sm-0 offset-lg-2 px-0 mb-5">
-                    <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Add new property</div>
+                    <div class="view view-cascade card-header card bg-dark text-center py-4 text-white h2">Add new
+                        property
+                    </div>
                     <div class="card-body card-body-cascade text-center mt-3">
                         <div class="row my-4">
                             <div class="col-sm-6 offset-sm-3 mb-4">
@@ -33,15 +35,18 @@
                                 </check>
                                 <label for="type">Type of Property</label><br>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="house" name="type" value="house">
+                                    <input type="radio" class="custom-control-input" id="house" name="type"
+                                           value="House">
                                     <label class="custom-control-label" for="house">House</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="condo" name="type" value="condo">
+                                    <input type="radio" class="custom-control-input" id="condo" name="type"
+                                           value="Condo">
                                     <label class="custom-control-label" for="condo">Condo</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="apartment" name="type" value="apartment">
+                                    <input type="radio" class="custom-control-input" id="apartment" name="type"
+                                           value="Apartment">
                                     <label class="custom-control-label" for="apartment">Apartment</label>
                                 </div>
                             </div>
@@ -50,11 +55,13 @@
                                 <div class="form-group form-check">
                                     <label for="rentDiv">Is this house for rent or purchase?</label><br>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" id="rent" name="rentbuy" value="rent">
+                                        <input type="radio" class="custom-control-input" id="rent" name="rentbuy"
+                                               value="rent">
                                         <label class="custom-control-label" for="rent">Rental</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" id="buy" name="rentbuy" value="buy">
+                                        <input type="radio" class="custom-control-input" id="buy" name="rentbuy"
+                                               value="buy">
                                         <label class="custom-control-label" for="buy">Purchase</label>
                                     </div>
                                 </div>
@@ -122,13 +129,19 @@
                                                                          form-control-lg input-group"
                                       placeholder="Brief description" cols="60" rows="5"></textarea>
                         </div>
-
-                        <div class="text-center">
-                            <button id="submit" type="submit" class="btn btn-lg btn-primary text-center mb-3" value="Register">Add Listing</button>
+                        <div>
+                            <input type="file" name="imageUploader">Load an image here (jpg or png only)
                         </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button id="submit" type="submit" class="btn btn-lg btn-primary text-center mb-3"
+                                value="Register">Add Listing
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
     </form>
 </div>
 

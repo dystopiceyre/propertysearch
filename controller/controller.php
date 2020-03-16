@@ -162,8 +162,7 @@ class PropertyController
             if (empty($_POST['newPassword']) && empty($_POST['newPassRepeat'])) {
                 $password = $_SESSION['person']->getPassword();
                 $passRepeat = $password;
-            }
-            else {
+            } else {
                 $password = $_POST['newPassword'];
                 $passRepeat = $_POST['newPassRepeat'];
             }
@@ -303,33 +302,56 @@ class PropertyController
             if (!$this->_validator->validDescription($description)) {
                 $this->_f3->set("errors['description']", "Enter only alphanumeric characters and the following punctuation: ,.!-()");
             }
+
             //Instantiate a property object
             $property = new Property($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description);
 
             //Write property to the database and grab last insert ID
             $id = $GLOBALS['db']->addProperty($property, $price, $type);
-            if ($type == 'house') {
-                if ($_POST['rentbuy'] == 'rent') {
-                    $rent = true;
+
+            if (isset($_FILES['imageUploader'])) {
+                $image = $_FILES['imageUploader'];
+                $validTypes = array('image/jpeg', 'image/jpg', 'image/png');
+                if ($_SERVER['CONTENT_LENGTH'] > 3000000) {
+                    echo "<p class='error'>File is too large. Maximum file size is 3MB.</p>";
+                } else if (in_array($image['type'], $validTypes)) {
+                    if ($image['error'] > 0) {
+                        echo "<p class='error'>Return Code: {$image['error']}</p>";
+                    }
+                    if (file_exists('images/' . $image['name'])) {
+                        echo "<p class='error'>Error uploading: ";
+                        echo $image['name'] . " already exists.</p>";
+                    } else {
+                        move_uploaded_file($image['tmp_name'], 'images/' . $image['name']);
+                        $GLOBALS['db']->addImage($image, $id);
+                    }
                 } else {
-                    $rent = false;
-                }
-                $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
-                $GLOBALS['db']->addHouse($house, $id);
-            } else {
-                $floorLevel = $_POST['floor'];
-                if (!$this->_validator->validFloor($floorLevel)) {
-                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
-                }
-                if ($type == 'Apartment') {
-                    $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-                    $GLOBALS['db']->addApartment($apartment, $id);
-                }
-                if ($type == 'Condo') {
-                    $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-                    $GLOBALS['db']->addCondo($condo, $id);
+                    echo "<p class='error'>Invalid file type. Allowed types: png, jpg</p>";
                 }
             }
+
+//            if ($type == 'house') {
+//                if ($_POST['rentbuy'] == 'rent') {
+//                    $rent = true;
+//                } else {
+//                    $rent = false;
+//                }
+//                $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
+//                $GLOBALS['db']->addHouse($house, $id);
+//            } else {
+//                $floorLevel = $_POST['floor'];
+//                if (!$this->_validator->validFloor($floorLevel)) {
+//                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
+//                }
+//                if ($type == 'Apartment') {
+//                    $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+//                    $GLOBALS['db']->addApartment($apartment, $id);
+//                }
+//                if ($type == 'Condo') {
+//                    $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+//                    $GLOBALS['db']->addCondo($condo, $id);
+//                }
+//            }
         } else {
             //Add POST array data to f3 hive for "sticky" form
             $this->_f3->set('property', $_POST);

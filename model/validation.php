@@ -146,7 +146,7 @@ class PropertyValidator
      */
     function validPrice($price)
     {
-        return !empty($price) && ctype_digit($price) && $price > 500 && $price <= 50000000;
+        return !empty($price) && ctype_digit($price) && $price >= 500 && $price <= 50000000;
     }
 
     /**
@@ -162,12 +162,12 @@ class PropertyValidator
     /**
      * Ensures chosen type is in F3 type array
      * @param $type
+     * @param $f3
      * @return bool
      */
-    public function validType($type)
+    public function validType($type, $f3)
     {
-        //TODO: use F3 array of type
-        return in_array($type, array('house', 'apartment', 'condo'));
+        return in_array($type, $f3->get('types'));
     }
 
     /**
