@@ -37,7 +37,7 @@ class PropertyController
     {
         $_SESSION['navDark'] = true;
 
-        if ($_SESSION['username']) {
+        if (!(empty($_SESSION['fname']))) {
             $this->_f3->reroute('/homes');
         }
 
@@ -95,6 +95,10 @@ class PropertyController
     {
         $_SESSION['navDark'] = true;
 
+        if (!(empty($_SESSION['fname']))) {
+            $this->_f3->reroute('/homes');
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $fname = $_POST['fname'];
@@ -142,8 +146,11 @@ class PropertyController
     public function profilePage()
     {
         $_SESSION['navDark'] = true;
-
         $_SESSION['successProf'] = "";
+
+        if (empty($_SESSION['fname'])) {
+            $this->_f3->reroute('/login');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -236,6 +243,10 @@ class PropertyController
     function add()
     {
         $_SESSION['navDark'] = true;
+
+        if (empty($_SESSION['fname'])) {
+            $this->_f3->reroute('/homes');
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];
