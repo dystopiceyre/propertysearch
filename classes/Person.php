@@ -15,10 +15,12 @@ class Person
 
     /**
      * Person constructor.
-     * @param $phone
+     * @param $fname
+     * @param $lname
      * @param $email
-     * @param $name
-     * @param $_password
+     * @param $password
+     * @param $phone
+     * @param $admin
      */
     function __construct($fname, $lname, $email, $password, $phone, $admin)
     {

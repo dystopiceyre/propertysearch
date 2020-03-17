@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * controller.php
+ * Handles all user requests, passes data to the model, and returns views
+ * Sets Fat Free Framework routes for the project
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ */
+
 class PropertyController
 {
 

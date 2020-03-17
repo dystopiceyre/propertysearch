@@ -9,11 +9,19 @@ $('#type').on('change', function () {
     }
 });
 
+/*
+* If the property is of the house type, shows the rent div
+* and hides the floor div
+*/
 function rentbuy() {
     $('#rentDiv').show();
     $('#floorDiv').hide();
 }
 
+/*
+* If the property is of the condo or apartment type,
+* hides the rent div and shows the floor div
+*/
 function floor() {
     $('#floorDiv').show();
     $('#rentDiv').hide();

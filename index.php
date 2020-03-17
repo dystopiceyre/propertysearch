@@ -9,6 +9,13 @@ require_once('vendor/autoload.php');;
 //Start a session
 session_start();
 
+/*
+ * index.php
+ * Sets Fat Free Framework routes for the project
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ */
+
 require('/home/oringhis/propertyConfig.php');
 try {
     $db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
