@@ -1,8 +1,9 @@
 <?php
 
-/*if ($_SERVER['REQUEST_URI'] == "/328/propertysearch/") {
-    $textColor = "text-white";
-}*/
+/**
+ * nav.php
+ * Displays the nav bar with all provided information from controller.php
+ */
 
 $text = "white";
 $collapse = "dark";
