@@ -35,6 +35,7 @@ class PropertyValidator
 
     /**
      * @return bool
+     * Checks if the profile info is valid in order to edit
      */
     function validProfile()
     {

@@ -1,4 +1,8 @@
-// enable name editing
+/**
+ * Hides the display fields and edit button,
+ * shows the editing input fields and buttons to
+ * cancel, delete profile, and save
+ */
 $("#editBtn").click(function() {
     $(this).hide();
     $("#editBtn, #nameTitle, #emailDisplay, #passDisplay, #phoneDisplay, #statusDisplay").hide();
@@ -6,7 +10,11 @@ $("#editBtn").click(function() {
         '#phoneEditDisplay, #statusRadioDisplay, #cancel, #save, #delete').show();
 });
 
-// cancel all edit actions
+/**
+ * Shows the display fields and edit button,
+ * hides the editing input fields and buttons to
+ * cancel, delete profile, and save
+ */
 $("#cancel").click(function() {
     $(this).hide();
     $("#editBtn, #nameTitle, #emailDisplay, #passDisplay, #phoneDisplay, #statusDisplay").show();
