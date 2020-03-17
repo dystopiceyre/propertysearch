@@ -1,12 +1,5 @@
 <?php
 
-/*
- * controller.php
- * Handles all user requests, passes data to the model, and returns views
- * Sets Fat Free Framework routes for the project
- * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
- * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
- */
 class PropertyController
 {
 
@@ -95,20 +88,11 @@ class PropertyController
         echo $view->render('views/login.html');
     }
 
-    /**
-     * Once called, this function reroutes to login
-     * Checks to see if user is already logged, redirects to /home if true.
-     */
     public function logout()
     {
         $this->_f3->reroute('/login');
     }
 
-    /**
-     * Displays the register page
-     * POST takes in all input info and creates a new person class,
-     * also sets everything into f3 and SESSION variables
-     */
     public function registerPage()
     {
         $_SESSION['navDark'] = true;
@@ -155,7 +139,7 @@ class PropertyController
                 $_SESSION['person'] = $person;
                 $GLOBALS['db']->addPerson();
 
-
+                $this->_f3->reroute('/homes');
             }
         }
 
@@ -163,12 +147,6 @@ class PropertyController
         echo $view->render('views/register.html');
     }
 
-    /*
-     * Displays profile page
-     * All info editable, which when saved runs the update function
-     * in database.php.
-     * If user deletes their profile it reroutes to the login route
-     */
     public function profilePage()
     {
         $_SESSION['navDark'] = true;
@@ -235,9 +213,6 @@ class PropertyController
         echo $view->render('views/profile.html');
     }
 
-    /**
-     * Displays the About Us page
-     */
     public function aboutUsPage()
     {
         $_SESSION['navDark'] = true;
@@ -246,17 +221,15 @@ class PropertyController
         echo $view->render('views/aboutus.html');
     }
 
-    public function showWelcome()
+    public
+    function showWelcome()
     {
         $view = new Template();
         echo $view->render('views/welcome.html');
     }
 
-    /*
-     * Displays the home listing page
-     * Displays all property information that fit the filters
-     */
-    public function properties()
+    public
+    function properties()
     {
         $_SESSION['navDark'] = true;
         $_SESSION['noResult'] = "";
@@ -301,45 +274,52 @@ class PropertyController
         echo $template->render('views/homes.html');
     }
 
-    /*
-     * Displays the add home property page
-     * On post it adds the property (if valid)
-     */
-    public function add()
+    public
+    function add()
     {
         $_SESSION['navDark'] = true;
+        $isValid = true;
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = strtolower($_POST['type']);
             if (!$this->_validator->validType($type, $this->_f3)) {
                 $this->_f3->set("errors['type']", "Enter a valid type of property.");
+//                $isValid = false;
             }
             $sqFoot = $_POST['sqFoot'];
             if (!$this->_validator->validSqFoot($sqFoot)) {
                 $this->_f3->set("errors['sqFoot']", "Enter a value of 250 square feet or greater.");
+                $isValid = false;
             }
             $bathCount = $_POST['bathCount'];
             if (!$this->_validator->validBath($bathCount)) {
                 $this->_f3->set("errors['bathCount']", "Enter only whole and half numbers 10 or less for the bath count.");
+                $isValid = false;
             }
             $bedCount = $_POST['bedCount'];
             if (!$this->_validator->validBed($bedCount)) {
                 $this->_f3->set("errors['bedCount']", "Enter only whole numbers between 1 and 10 for the bedroom count.");
+                $isValid = false;
             }
             $price = $_POST['price'];
             if (!$this->_validator->validPrice($price)) {
                 $this->_f3->set("errors['price']", "Enter a whole dollar amount of $500 or greater for the price.");
+                $isValid = false;
             }
             $yearBuilt = $_POST['yearBuilt'];
             if (!$this->_validator->validYearBuilt($yearBuilt)) {
                 $this->_f3->set("errors['yearBuilt']", "Enter a year between 1600 and 2020, inclusive.");
+                $isValid = false;
             }
             $location = $_POST['location'];
             if (!$this->_validator->validLocation($location)) {
                 $this->_f3->set("errors['location']", "Enter a valid 5 digit zip code.");
+                $isValid = false;
             }
             $description = $_POST['description'];
             if (!$this->_validator->validDescription($description)) {
                 $this->_f3->set("errors['description']", "Enter only alphanumeric characters and the following punctuation: ,.!-()");
+                $isValid = false;
             }
 
             //Instantiate a property object
@@ -381,6 +361,7 @@ class PropertyController
                 $floorLevel = $_POST['floor'];
                 if (!$this->_validator->validFloor($floorLevel)) {
                     $this->_f3->set("errors['floor']", "Enter a number one or greater.");
+                    $isValid = false;
                 }
                 if ($type == 'apartment') {
                     $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
@@ -390,6 +371,10 @@ class PropertyController
                     $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
                     $GLOBALS['db']->addCondo($condo, $id);
                 }
+            }
+
+            if ($isValid) {
+                $this->_f3->reroute('/homes');
             }
         } else {
             //Add POST array data to f3 hive for "sticky" form
