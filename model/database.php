@@ -91,15 +91,15 @@ class PropertyDatabase
      */
     function filter($type, $zip, $bedMin, $bedMax, $bathMin, $bathMax, $priceMin, $priceMax)
     {
-        if ($type == 'House') {
+        if ($type == 'house') {
             $sql = "SELECT * FROM property INNER JOIN house ON property.prop_id = house.prop_id WHERE location 
         LIKE CONCAT(:location, '___%') AND bed_count BETWEEN :bedMin AND :bedMax AND bath_count BETWEEN :bathMin AND 
         :bathMax AND price BETWEEN :priceMin AND :priceMax";
-        } else if ($type == 'Apartment') {
+        } else if ($type == 'apartment') {
             $sql = "SELECT * FROM property INNER JOIN apartment ON property.prop_id = apartment.prop_id
         WHERE location LIKE CONCAT(:location, '___%') AND bed_count BETWEEN :bedMin AND :bedMax AND bath_count
         BETWEEN :bathMin AND :bathMax AND price BETWEEN :priceMin AND :priceMax";
-        } else if ($type == 'Condo') {
+        } else if ($type == 'condo') {
             $sql = "SELECT * FROM property INNER JOIN condo ON property.prop_id = condo.prop_id
         WHERE location LIKE CONCAT(:location, '___%') AND bed_count BETWEEN :bedMin AND :bedMax AND
         bath_count BETWEEN :bathMin AND :bathMax AND price BETWEEN :priceMin AND :priceMax";
@@ -209,7 +209,6 @@ class PropertyDatabase
         $statement->bindParam(':phone', $_SESSION['person']->getPhone());
         $statement->bindParam(':admin', $_SESSION['person']->getAdmin());
         $statement->execute();
-        echo "New user added!<br>";
         return $user = $this->_db->lastInsertId();
     }
 
@@ -234,7 +233,6 @@ class PropertyDatabase
         $statement->bindParam(':type', $type, PDO::PARAM_STR);
         $statement->bindParam(':location', $property->getLocation(), PDO::PARAM_INT);
         $statement->execute();
-        echo "New property added!<br>";
         return $id = $this->_db->lastInsertId();
     }
 
@@ -250,7 +248,6 @@ class PropertyDatabase
         $statement->bindParam(':rent', $house->getRentBuy());
         $statement->bindParam(':prop_id', $id);
         $statement->execute();
-        echo "New house added!<br>";
     }
 
     /** Adds apartment info to a previously created property
@@ -264,7 +261,6 @@ class PropertyDatabase
         $statement->bindParam(':prop_id', $id);
         $statement->bindParam(':floor', $apartment->getFloorLevel());
         $statement->execute();
-        echo "New apartment added!<br>";
     }
 
     /** Adds condo info to a previously created property
@@ -278,7 +274,6 @@ class PropertyDatabase
         $statement->bindParam(':prop_id', $id, PDO::PARAM_INT);
         $statement->bindParam(':floor', $condo->getFloorLevel());
         $statement->execute();
-        echo "New condo added!<br>";
     }
 
     function addImage($image, $id)

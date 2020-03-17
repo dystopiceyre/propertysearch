@@ -19,7 +19,7 @@ class PropertyController
         $view = new Template();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $type = $_POST['typeSelect'];
+            $type = strtolower($_POST['typeSelect']);
             $zip = substr(trim($_POST['zip']), 0, 2);
             $_SESSION['type'] = $type;
             $_SESSION['location'] = $zip;
@@ -231,13 +231,13 @@ class PropertyController
         if (isset($_SESSION['type'])) {
             $type = $_SESSION['type'];
             $location = $_SESSION['location'];
-            if ($type == 'House') {
+            if ($type == 'house') {
                 $houses = $GLOBALS['db']->getHouses($location);
                 $this->_f3->set('properties', $houses);
-            } else if ($type == 'Condo') {
+            } else if ($type == 'condo') {
                 $condos = $GLOBALS['db']->getCondos($location);
                 $this->_f3->set('properties', $condos);
-            } else if ($type == 'Apartment') {
+            } else if ($type == 'apartment') {
                 $apartments = $GLOBALS['db']->getApartments($location);
                 $this->_f3->set('properties', $apartments);
             } else {
@@ -248,7 +248,7 @@ class PropertyController
             unset($_SESSION['type']);
         } else {
             //if using filters on page
-            $type = $_GET['typeSelect'];
+            $type = strtolower($_GET['typeSelect']);
             $zip = substr(trim($_GET['zip']), 0, 2);
             $beds = explode("-", $_GET['beds']);
             $bedMin = trim($beds[0]);
@@ -272,7 +272,7 @@ class PropertyController
     {
         $_SESSION['navDark'] = true;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $type = $_POST['type'];
+            $type = strtolower($_POST['type']);
             if (!$this->_validator->validType($type, $this->_f3)) {
                 $this->_f3->set("errors['type']", "Enter a valid type of property.");
             }
@@ -332,28 +332,28 @@ class PropertyController
                 }
             }
 
-//            if ($type == 'house') {
-//                if ($_POST['rentbuy'] == 'rent') {
-//                    $rent = true;
-//                } else {
-//                    $rent = false;
-//                }
-//                $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
-//                $GLOBALS['db']->addHouse($house, $id);
-//            } else {
-//                $floorLevel = $_POST['floor'];
-//                if (!$this->_validator->validFloor($floorLevel)) {
-//                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
-//                }
-//                if ($type == 'Apartment') {
-//                    $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-//                    $GLOBALS['db']->addApartment($apartment, $id);
-//                }
-//                if ($type == 'Condo') {
-//                    $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-//                    $GLOBALS['db']->addCondo($condo, $id);
-//                }
-//            }
+            if ($type == 'house') {
+                if ($_POST['rentbuy'] == 'rent') {
+                    $rent = true;
+                } else {
+                    $rent = false;
+                }
+                $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
+                $GLOBALS['db']->addHouse($house, $id);
+            } else {
+                $floorLevel = $_POST['floor'];
+                if (!$this->_validator->validFloor($floorLevel)) {
+                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
+                }
+                if ($type == 'apartment') {
+                    $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+                    $GLOBALS['db']->addApartment($apartment, $id);
+                }
+                if ($type == 'condo') {
+                    $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+                    $GLOBALS['db']->addCondo($condo, $id);
+                }
+            }
         } else {
             //Add POST array data to f3 hive for "sticky" form
             $this->_f3->set('property', $_POST);
