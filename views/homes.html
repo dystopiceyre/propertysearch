@@ -37,7 +37,7 @@
                         <div class="col-sm-9 col-lg-4">
                             <a class="card hover mb-5" data-toggle="modal"
                                data-target="#modal{{ @property['prop_id'] }}">
-                                <img src="./images/landing-pic.jpg" class="card-img-top" alt="photo of the property">
+                                <img src="./images/landing-pic.jpg" class="card-img-top" alt="image of the property">
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="row">
@@ -49,7 +49,8 @@
 
                                             <div class="col-8">
                                                 <p class="card-title h2">${{ @property['price']}}<br>
-                                                    <span class="h5 font-weight-light">{{ @property['type'] }}</span></p>
+                                                    <span class="h5 font-weight-light">{{ @property['type'] }}</span>
+                                                </p>
                                             </div>
 
                                             <div class="col-2">
@@ -63,7 +64,7 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-body">
-                                                        <img src="./images/landing-pic.jpg" class="img-fluid" alt="dummyImage">
+                                                    <img src="./images/landing-pic.jpg" class="img-fluid" alt="image of the property">
                                                     <div class="row mt-3 mb-4">
                                                         <div class="col-3">
                                                             <!--Envelope icon-->
@@ -79,23 +80,37 @@
                                                     </div>
 
                                                     <p class="h4 font-weight-normal mb-3">Location:
-                                                        <span class="font-weight-light">{{ @property['location'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['location'] }}</span>
+                                                    </p>
                                                     <check if="{{ @property['type'] }} == house">
                                                         <p class="h4 font-weight-normal mb-3">Rent or purchase:
-                                                            <span class="font-weight-light">{{ @property['rent'] }}</span></p>
+                                                            <check if="{{ @property['rent'] }} == 1">
+                                                                <true>
+                                                                    <span class="font-weight-light">Rent</span>
+                                                                </true>
+                                                                <false>
+                                                                    <span class="font-weight-light">Purchase</span>
+                                                                </false>
+                                                            </check>
+                                                        </p>
                                                     </check>
                                                     <check if="{{ @property['type'] }} != house">
                                                         <p class="h4 font-weight-normal mb-3">Floor #:
-                                                            <span class="font-weight-light">{{ @property['floor_level'] }}</span></p>
+                                                            <span class="font-weight-light">{{ @property['floor_level'] }}</span>
+                                                        </p>
                                                     </check>
                                                     <p class="h4 font-weight-normal mb-3">Square Footage:
-                                                        <span class="font-weight-light">{{ @property['sq_foot'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['sq_foot'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3"># of Bedrooms:
-                                                        <span class="font-weight-light">{{ @property['bed_count'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['bed_count'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3"># of Bathrooms:
-                                                        <span class="font-weight-light">{{ @property['bath_count'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['bath_count'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3">Description:
-                                                        <span class="font-weight-light">{{ @property['description'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['description'] }}</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,7 +139,8 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP" name="zip" id="zip">
+                        <input type="text" class="form-control-lg input-group opacity rounded-0" placeholder="ZIP"
+                               name="zip" id="zip">
                     </div>
 
                     <div class="form-group">
@@ -134,7 +150,8 @@
                     <div class="form-group">
                         <p>
                             <label for="price">Price range:</label><br>
-                            <input type="text" id="price" name="price" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="price" name="price"
+                                   class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="price-range"></div>
                     </div>
@@ -142,7 +159,8 @@
                     <div class="form-group">
                         <p>
                             <label for="beds">Bedrooms:</label><br>
-                            <input type="text" id="beds" name="beds" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="beds" name="beds"
+                                   class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="bed-range"></div>
                     </div>
@@ -150,7 +168,8 @@
                     <div class="form-group">
                         <p>
                             <label for="baths">Bathrooms:</label><br>
-                            <input type="text" id="baths" name="baths" class="form-control-lg input-group opacity rounded-0">
+                            <input type="text" id="baths" name="baths"
+                                   class="form-control-lg input-group opacity rounded-0">
                         </p>
                         <div id="bath-range"></div>
                     </div>
