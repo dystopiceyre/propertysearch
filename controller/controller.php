@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * controller.php
+ * Handles all user requests, passes data to the model, and returns views
+ * Sets Fat Free Framework routes for the project
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ */
 class PropertyController
 {
 
@@ -88,11 +95,20 @@ class PropertyController
         echo $view->render('views/login.html');
     }
 
+    /**
+     * Once called, this function reroutes to login
+     * Checks to see if user is already logged, redirects to /home if true.
+     */
     public function logout()
     {
         $this->_f3->reroute('/login');
     }
 
+    /**
+     * Displays the register page
+     * POST takes in all input info and creates a new person class,
+     * also
+     */
     public function registerPage()
     {
         $_SESSION['navDark'] = true;
@@ -147,6 +163,12 @@ class PropertyController
         echo $view->render('views/register.html');
     }
 
+    /*
+    * Displays profile page
+    * All info editable, which when saved runs the update function
+    * in database.php.
+    * If user deletes their profile it reroutes to the login route
+    */
     public function profilePage()
     {
         $_SESSION['navDark'] = true;
@@ -213,6 +235,9 @@ class PropertyController
         echo $view->render('views/profile.html');
     }
 
+    /**
+     * Displays the About Us page
+     */
     public function aboutUsPage()
     {
         $_SESSION['navDark'] = true;
@@ -221,15 +246,17 @@ class PropertyController
         echo $view->render('views/aboutus.html');
     }
 
-    public
-    function showWelcome()
+    public function showWelcome()
     {
         $view = new Template();
         echo $view->render('views/welcome.html');
     }
 
-    public
-    function properties()
+    /*
+    * Displays the home listing page
+    * Displays all property information that fit the filters
+    */
+    public function properties()
     {
         $_SESSION['navDark'] = true;
         $_SESSION['noResult'] = "";
@@ -274,8 +301,11 @@ class PropertyController
         echo $template->render('views/homes.html');
     }
 
-    public
-    function add()
+    /*
+     * Displays the add home property page
+     * On post it adds the property (if valid)
+     */
+    public function add()
     {
         $_SESSION['navDark'] = true;
         $isValid = true;
@@ -284,7 +314,7 @@ class PropertyController
             $type = strtolower($_POST['type']);
             if (!$this->_validator->validType($type, $this->_f3)) {
                 $this->_f3->set("errors['type']", "Enter a valid type of property.");
-//                $isValid = false;
+                $isValid = false;
             }
             $sqFoot = $_POST['sqFoot'];
             if (!$this->_validator->validSqFoot($sqFoot)) {
@@ -349,31 +379,31 @@ class PropertyController
                 }
             }
 
-            if ($type == 'house') {
-                if ($_POST['rentbuy'] == 'rent') {
-                    $rent = true;
-                } else {
-                    $rent = false;
-                }
-                $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
-                $GLOBALS['db']->addHouse($house, $id);
-            } else {
-                $floorLevel = $_POST['floor'];
-                if (!$this->_validator->validFloor($floorLevel)) {
-                    $this->_f3->set("errors['floor']", "Enter a number one or greater.");
-                    $isValid = false;
-                }
-                if ($type == 'apartment') {
-                    $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-                    $GLOBALS['db']->addApartment($apartment, $id);
-                }
-                if ($type == 'condo') {
-                    $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
-                    $GLOBALS['db']->addCondo($condo, $id);
-                }
-            }
-
             if ($isValid) {
+                if ($type == 'house') {
+                    if ($_POST['rentbuy'] == 'rent') {
+                        $rent = true;
+                    } else {
+                        $rent = false;
+                    }
+                    $house = new House($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $rent, $price);
+                    $GLOBALS['db']->addHouse($house, $id);
+                } else {
+                    $floorLevel = $_POST['floor'];
+                    if (!$this->_validator->validFloor($floorLevel)) {
+                        $this->_f3->set("errors['floor']", "Enter a number one or greater.");
+                        $isValid = false;
+                    }
+                    if ($type == 'apartment') {
+                        $apartment = new Apartment($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+                        $GLOBALS['db']->addApartment($apartment, $id);
+                    }
+                    if ($type == 'condo') {
+                        $condo = new Condo($sqFoot, $bathCount, $bedCount, $yearBuilt, $location, $description, $price, $floorLevel);
+                        $GLOBALS['db']->addCondo($condo, $id);
+                    }
+                }
+
                 $this->_f3->reroute('/homes');
             }
         } else {
