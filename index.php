@@ -9,6 +9,12 @@ require_once('vendor/autoload.php');;
 //Start a session
 session_start();
 
+/*
+ * index.php
+ * Sets Fat Free Framework routes for the project
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ */
 require('/home/joshicgr/config.php');
 try {
     $db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
@@ -31,32 +37,38 @@ $f3->route('GET|POST /', function () {
     $controller->landingPage();
 });
 
+//Defines a route to the login page which allows you to sign in
 $f3->route('GET|POST /login', function () {
     global $controller;
     $controller->loginPage();
 });
 
+//Defines a route to the logout page which then redirects you to the login route
 $f3->route('GET|POST /logout', function () {
     session_destroy();
     global $controller;
     $controller->logout();
 });
 
+//Defines a route to the register page which allows you to register
 $f3->route('GET|POST /register', function () {
     global $controller;
     $controller->registerPage();
 });
 
+//Defines a route to the profile info page
 $f3->route('GET|POST /profile', function () {
     global $controller;
     $controller->profilePage();
 });
 
+//Defines a route to the aboutus page
 $f3->route('GET|POST /aboutus', function () {
     global $controller;
     $controller->aboutUsPage();
 });
 
+//Defines a route to the welcome page
 $f3->route('GET|POST /welcome', function () {
     global $controller;
     $controller->showWelcome();

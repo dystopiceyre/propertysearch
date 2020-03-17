@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * validation.php
+ * Validates all user entered data
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ */
+
 class PropertyValidator
 {
     private $_f3;

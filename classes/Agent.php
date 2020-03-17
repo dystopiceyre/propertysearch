@@ -9,10 +9,11 @@ class Agent extends Person
 
     /**
      * Agent constructor.
-     * @param $phone
+     * @param $fname
+     * @param $lname
      * @param $email
-     * @param $name
-     * @param $_password
+     * @param $password
+     * @param $phone
      */
     function __construct($fname, $lname, $email, $password, $phone)
     {

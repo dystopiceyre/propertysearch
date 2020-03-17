@@ -1,3 +1,7 @@
+/*
+* jQuery input slider for the user to define a price range
+* to search for properties in
+*/
 $(function () {
     $("#price-range").slider({
         range: true,
@@ -13,6 +17,10 @@ $(function () {
         " - $" + $("#price-range").slider("values", 1));
 });
 
+/*
+* jQuery input slider for the user to define the number
+*  of bedrooms to search for properties in
+*/
 $(function () {
     $("#bed-range").slider({
         range: true,
@@ -28,6 +36,10 @@ $(function () {
         $("#bed-range").slider("values", 1));
 });
 
+/*
+* jQuery input slider for the user to define the number
+*  of bathrooms to search for properties in
+*/
 $(function () {
     $("#bath-range").slider({
         range: true,

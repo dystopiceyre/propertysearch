@@ -139,7 +139,7 @@ class PropertyController
                 $_SESSION['person'] = $person;
                 $GLOBALS['db']->addPerson();
 
-                $this->_f3->reroute('/homes');
+
             }
         }
 

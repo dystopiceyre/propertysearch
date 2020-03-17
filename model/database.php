@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * database.php
+ * Holds all SQL queries to add, delete, and modify elements to the database
+ * Implements PHP's PDO database objects
+ * @author     Olivia Ringhiser oringhiser@mail.greenriver.edu
+ * @author     Joshua Kristiansen jkristiansen@mail.greenriver.edu
+ */
+
 class PropertyDatabase
 {
     //PDO object
