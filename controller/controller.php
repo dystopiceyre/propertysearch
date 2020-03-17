@@ -138,6 +138,8 @@ class PropertyController
 
                 $_SESSION['person'] = $person;
                 $GLOBALS['db']->addPerson();
+
+                $this->_f3->reroute('/homes');
             }
         }
 
@@ -152,6 +154,11 @@ class PropertyController
 
         if (empty($_SESSION['fname'])) {
             $this->_f3->reroute('/login');
+        }
+
+        if(isset($_POST['delete'])) {
+            $GLOBALS['db']->deletePerson();
+            $this->_f3->reroute('/logout');
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

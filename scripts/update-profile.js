@@ -3,7 +3,7 @@ $("#editBtn").click(function() {
     $(this).hide();
     $("#editBtn, #nameTitle, #emailDisplay, #passDisplay, #phoneDisplay, #statusDisplay").hide();
     $('#nameEditTitle, #newFName, #newLName, #emailEditDisplay, #newPassword, #newPassRepeat,' +
-        '#phoneEditDisplay, #statusRadioDisplay, #cancel, #save').show();
+        '#phoneEditDisplay, #statusRadioDisplay, #cancel, #save, #delete').show();
 });
 
 // cancel all edit actions
@@ -11,5 +11,5 @@ $("#cancel").click(function() {
     $(this).hide();
     $("#editBtn, #nameTitle, #emailDisplay, #passDisplay, #phoneDisplay, #statusDisplay").show();
     $('#nameEditTitle, #newFName, #newLName, #emailEditDisplay, #newPassword, #newPassRepeat,' +
-        '#phoneEditDisplay, #statusRadioDisplay, #cancel, #save').hide();
+        '#phoneEditDisplay, #statusRadioDisplay, #cancel, #save, #delete').hide();
 });

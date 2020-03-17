@@ -10,9 +10,9 @@ class PropertyDatabase
      */
     function __construct()
     {
-        require('/home/oringhis/propertyConfig.php');
+        require('/home/joshicgr/config.php');
         try {
-            $this->_db = new PDO(DB_PROP_DSN, DB_PROP_USERNAME, DB_PROP_PASSWORD);
+            $this->_db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -210,6 +210,25 @@ class PropertyDatabase
         $statement->bindParam(':admin', $_SESSION['person']->getAdmin());
         $statement->execute();
         return $user = $this->_db->lastInsertId();
+    }
+
+    /**
+     * Deletes a person (agent or buyer) from db
+     */
+    function deletePerson()
+    {
+
+        // 1. Define the query
+        $sql = "DELETE FROM users WHERE users.user_email = :email";
+
+        // 2. Prepare the statement
+        $statement = $this->_db->prepare($sql);
+
+        // 3.Bind the parameters
+        $statement->bindParam(':email', $_SESSION['person']->getEmail());
+
+        // 4. Execute the statement
+        $statement->execute();
     }
 
     /**
