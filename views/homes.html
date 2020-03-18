@@ -82,20 +82,31 @@
                                                         <span class="font-weight-light">{{ @property['location'] }}</span></p>
                                                     <check if="{{ @property['type'] }} == house">
                                                         <p class="h4 font-weight-normal mb-3">Rent or purchase:
-                                                            <span class="font-weight-light">{{ @property['rent'] }}</span></p>
-                                                    </check>
+                                                            <check if="{{ @property['rent'] }} == 1">
+                                                                <true>
+                                                                    <span class="font-weight-light">Rent</span>
+                                                                </true>
+                                                                <false>
+                                                                    <span class="font-weight-light">Purchase</span>
+                                                                </false>
+                                                            </check>
+                                                        </p>
                                                     <check if="{{ @property['type'] }} != house">
                                                         <p class="h4 font-weight-normal mb-3">Floor #:
-                                                            <span class="font-weight-light">{{ @property['floor_level'] }}</span></p>
-                                                    </check>
+                                                            <span class="font-weight-light">{{ @property['floor_level'] }}</span>
+                                                        </p>
                                                     <p class="h4 font-weight-normal mb-3">Square Footage:
-                                                        <span class="font-weight-light">{{ @property['sq_foot'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['sq_foot'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3"># of Bedrooms:
-                                                        <span class="font-weight-light">{{ @property['bed_count'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['bed_count'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3"># of Bathrooms:
-                                                        <span class="font-weight-light">{{ @property['bath_count'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['bath_count'] }}</span>
+                                                    </p>
                                                     <p class="h4 font-weight-normal mb-3">Description:
-                                                        <span class="font-weight-light">{{ @property['description'] }}</span></p>
+                                                        <span class="font-weight-light">{{ @property['description'] }}</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
